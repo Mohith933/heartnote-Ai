@@ -15,7 +15,7 @@
 @media (prefers-color-scheme: dark) {
   :root{  
       --bg: #fff;  
-      --text:#000;  
+      --text:#000;
       --accent:  #ff4d6d;  
       --muted: #e63950;  
 --card: rgba(255,255,255,0.04);  
@@ -28,6 +28,7 @@ body.dark {
   --text: #f9f9fb;
   --accent: #ff5c8d;
   --muted: #ff7da3;
+  --option:#000;
   --card: rgba(255, 255, 255, 0.04);
   --glass: rgba(255, 255, 255, 0.05);
 }
@@ -130,7 +131,10 @@ body.dark {
       padding:10px;  
       font-size:0.95rem;  
       outline:none;  
-    }  
+    } 
+    option{
+      color:var(--option);
+    }
     textarea{ min-height:90px; resize:vertical; }  
   
     .small { width:auto; display:inline-flex; gap:8px; align-items:center; }  
