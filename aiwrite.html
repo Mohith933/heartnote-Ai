@@ -11,26 +11,29 @@
 
   <style>
     /* Dark mode theme */
+
+    :root {
+  /* 🌞 Light mode defaults */
+  --bg: #fff;
+  --text: #000;
+  --accent: #ff4d6d;
+  --muted: #e63950;
+  --card: rgba(255,255,255,0.04);
+  --glass: rgba(255,255,255,0.03);
+}
+
+/* 🌙 Dark mode — automatic via system preference */
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #fff;
-      --text:#000;
-      --accent:  #ff4d6d;
-      --muted: #e63950;
-      --card: rgba(255,255,255,0.04);
-      --glass: rgba(255,255,255,0.03);
+    --bg: #0e0e0f;
+    --text: #f9f9fb;
+    --accent: #ff5c8d;
+    --muted: #ff7da3;
+    --card: rgba(255,255,255,0.04);
+    --glass: rgba(255,255,255,0.05);
   }
-
-
-body.dark {
-  --bg: #0e0e0f;
-  --text: #f9f9fb;
-  --accent: #ff5c8d;
-  --muted: #ff7da3;
-  --card: rgba(255, 255, 255, 0.04);
-  --glass: rgba(255, 255, 255, 0.05);
 }
-}
+
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
