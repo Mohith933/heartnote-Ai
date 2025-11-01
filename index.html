@@ -1,296 +1,199 @@
-<!DOCTYPE html>  
-<html lang="en">  
-<head>  
-  <meta charset="UTF-8">  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-  <title>Valantine AI 💌</title>  
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">  
-  <style>  
-    :root {  
-      --bg: #fff;  
-      --text: #000;  
-      --accent: #ff7aa2;  
-      --accent-hover: #ff527c;  
-      --glass-bg: rgba(255, 255, 255, 0.15);  
-      --glass-border: rgba(255, 255, 255, 0.3);  
-    }  * {  
-  margin: 0;  
-  padding: 0;  
-  box-sizing: border-box;  
-  font-family: "Poppins", sans-serif;  
-}  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Valantine AI — Creative Writer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #ff4d6d;
+      --accent-dark: #e63950;
+      --bg: #fff;
+      --text: #222;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-body {  
-  background: var(--bg);  
-  color: var(--text);  
-  min-height: 100vh;  
-  overflow-x: hidden;  
-  display: flex;  
-  flex-direction: column;  
-  align-items: center;  
-}  
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 8%;
+      background: #fff;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cta-btn {
+      background: var(--accent);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 10px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .cta-btn:hover {
+      background: var(--accent-dark);
+      transform: scale(1.05);
+    }
 
-header {  
-  width: 100%;  
-  max-width: 1200px;  
-  display: flex;  
-  justify-content: space-between;  
-  align-items: center;  
-  padding: 1.5rem 2rem;  
-  position: sticky;  
-  top: 0;  
-  background: rgba(255, 255, 255, 0.7);  
-  backdrop-filter: blur(10px);  
-  border-bottom: 1px solid var(--glass-border);  
-  z-index: 100;  
-}  
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 100px 8% 80px;
+      max-width: 800px;
+      margin: auto;
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .hero p {
+      color: #444;
+      font-size: 1.1rem;
+      margin-bottom: 28px;
+    }
+    .hero .hero-btn {
+      background: var(--accent);
+      color: #fff;
+      padding: 12px 22px;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .hero .hero-btn:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+    }
 
-header h1 {  
-  font-size: 1.8rem;  
-  font-weight: 700;  
-  letter-spacing: 1px;  
-}  
+    /* Features */
+    .features {
+      padding: 80px 8%;
+      background: #fff5f7;
+    }
+    .features h2 {
+      text-align: center;
+      color: var(--accent);
+      font-size: 2rem;
+      margin-bottom: 50px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 28px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .feature {
+      background: #fff;
+      padding: 24px;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(255,77,109,0.12);
+      transition: transform 0.2s ease;
+    }
+    .feature:hover { transform: translateY(-6px); }
+    .feature h3 {
+      color: var(--accent);
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+    .feature p { color: #444; font-size: 0.95rem; }
 
-header span {  
-  color: var(--accent);  
-}  
+    /* Footer */
+    footer {
+      background: var(--accent);
+      color: #fff;
+      text-align: center;
+      padding: 40px 10%;
+      margin-top: 80px;
+    }
+    footer h3 {
+      font-weight: 600;
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+    }
+    footer p {
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+    footer small {
+      display: block;
+      margin-top: 18px;
+      opacity: 0.8;
+    }
 
-.btn {  
-  background: var(--accent);  
-  border: none;  
-  color: #fff;  
-  font-weight: 600;  
-  padding: 10px 24px;  
-  border-radius: 25px;  
-  cursor: pointer;  
-  transition: 0.3s ease;  
-}  
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.2rem; }
+      header { flex-direction: row; gap: 10px; }
+    }
+  </style>
+</head>
+<body>
 
-.btn:hover {  
-  background: var(--accent-hover);  
-  transform: translateY(-2px);  
-}  
+  <header>
+    <div class="logo">💞 Valantine AI</div>
+    <button class="cta-btn">Sign Up</button>
+  </header>
 
-.hero {  
-  text-align: center;  
-  margin-top: 4rem;  
-  max-width: 900px;  
-  padding: 2rem;  
-}  
+  <section class="hero" id="home">
+    <h1>Valantine AI — Creative Writer</h1>
+    <p>Write with emotion, not automation. Valantine crafts your thoughts into words  
+    that breathe, blush, and belong to you.</p>
+    <button class="hero-btn">Try Free 💗</button>
+  </section>
 
-.hero h2 {  
-  font-size: 2.8rem;  
-  font-weight: 700;  
-  margin-bottom: 1rem;  
-  line-height: 1.3;  
-}  
+  <section class="features" id="features">
+    <h2>Why Writers Love Valantine</h2>
+    <div class="features-grid">
+      <div class="feature">
+        <h3>❤️ Emotion Slider</h3>
+        <p>Adjust your tone from soft to deep and watch your words feel alive.</p>
+      </div>
+      <div class="feature">
+        <h3>🪶 Realistic Flow</h3>
+        <p>Experience writing as it unfolds — natural, slow, and poetic.</p>
+      </div>
+      <div class="feature">
+        <h3>🌸 Private Creations</h3>
+        <p>Your stories stay local — never shared, always yours.</p>
+      </div>
+    </div>
+  </section>
 
-.hero p {  
-  font-size: 1.2rem;  
-  color: #444;  
-  margin-bottom: 2rem;  
-}  
+  <footer>
+    <h3>Valantine AI</h3>
+    <p>The creative writer that listens to your heart.</p>
+    <small>© 2025 Valantine AI. All rights reserved.</small>
+  </footer>
 
-.glass-box {  
-  background: var(--glass-bg);  
-  backdrop-filter: blur(25px);  
-  border: 1px solid var(--glass-border);  
-  border-radius: 20px;  
-  padding: 2rem;  
-  width: 85%;  
-  max-width: 800px;  
-  margin: 2rem auto;  
-  box-shadow: 0 10px 40px rgba(0,0,0,0.05);  
-}  
-
-textarea {  
-  width: 100%;  
-  height: 150px;  
-  border: none;  
-  outline: none;  
-  background: rgba(255, 255, 255, 0.4);  
-  padding: 1rem;  
-  border-radius: 10px;  
-  font-size: 1rem;  
-  resize: none;  
-  color: #333;  
-}  
-
-.generate-btn {  
-  background: var(--accent);  
-  color: #fff;  
-  border: none;  
-  padding: 12px 28px;  
-  border-radius: 30px;  
-  margin-top: 1rem;  
-  cursor: pointer;  
-  font-weight: 600;  
-  transition: all 0.3s;  
-}  
-
-.generate-btn:hover {  
-  background: var(--accent-hover);  
-}  
-
-.output {  
-  margin-top: 1.5rem;  
-  background: rgba(255, 255, 255, 0.5);  
-  padding: 1rem;  
-  border-radius: 10px;  
-  min-height: 100px;  
-  font-style: italic;  
-  color: #444;  
-}  
-
-.features {  
-  display: grid;  
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));  
-  gap: 1.5rem;  
-  margin: 4rem auto;  
-  width: 90%;  
-  max-width: 1000px;  
-}  
-
-.feature-card {  
-  background: rgba(255,255,255,0.6);  
-  border: 1px solid rgba(0,0,0,0.05);  
-  padding: 2rem;  
-  border-radius: 16px;  
-  text-align: center;  
-  box-shadow: 0 8px 20px rgba(0,0,0,0.04);  
-  transition: all 0.3s ease;  
-}  
-
-.feature-card:hover {  
-  transform: translateY(-5px);  
-  border-color: var(--accent);  
-}  
-
-.feature-card h4 {  
-  color: var(--accent);  
-  margin-bottom: 0.8rem;  
-}  
-
-.feature-card p {  
-  font-size: 0.95rem;  
-  color: #555;  
-}  
-
-.testimonials {  
-  text-align: center;  
-  background: #f9f9f9;  
-  width: 100%;  
-  padding: 4rem 2rem;  
-}  
-
-.testimonials h3 {  
-  font-size: 1.8rem;  
-  color: var(--text);  
-  margin-bottom: 2rem;  
-}  
-
-.quote {  
-  max-width: 700px;  
-  margin: 0 auto;  
-  font-style: italic;  
-  color: #555;  
-  font-size: 1.1rem;  
-  line-height: 1.6;  
-}  
-
-.cta {  
-  text-align: center;  
-  margin: 5rem 0;  
-}  
-
-.cta h2 {  
-  font-size: 2rem;  
-  margin-bottom: 1rem;  
-}  
-
-.cta p {  
-  color: #444;  
-  margin-bottom: 1.5rem;  
-}  
-
-footer {  
-  text-align: center;  
-  padding: 2rem;  
-  font-size: 0.9rem;  
-  color: #777;  
-  margin-top: auto;  
-}  
-
-footer span {  
-  color: var(--accent);  
-  font-weight: 600;  
-}  
-
-@keyframes fadeIn {  
-  from {opacity: 0; transform: translateY(20px);}  
-  to {opacity: 1; transform: translateY(0);}  
-}  
-
-.fade {  
-  animation: fadeIn 1s ease forwards;  
-}
-
-  </style>  
-</head>  
-<body>  
-  <header>  
-    <h1>Valantine<span>AI</span></h1>  
-    <button class="btn">Sign In</button>  
-  </header>    <section class="hero fade">  
-    <h2>Write with Emotion. Create with Intelligence.</h2>  
-    <p>Your personal AI writer for love letters, poems, resumes, and quotes —    
-    designed to make your words *feel alive*.</p>  
-    <button class="btn">Get Started</button>  
-  </section>    <div class="glass-box fade">  
-    <h3>Try Valantine AI 💬</h3>  
-    <textarea id="userInput" placeholder="Write your idea or feeling..."></textarea>  
-    <button class="generate-btn" id="generateBtn">Generate Magic</button>  
-    <div class="output" id="output"></div>  
-  </div>    <section class="features fade">  
-    <div class="feature-card">  
-      <h4>🩷 Emotional Writing</h4>  
-      <p>Valantine AI understands your mood — crafting love letters, poems, and personal notes that truly express your heart.</p>  
-    </div>  
-    <div class="feature-card">  
-      <h4>🎨 Creative + Professional</h4>  
-      <p>Switch between heartfelt writing and career-focused tone for resumes, bios, and introductions effortlessly.</p>  
-    </div>  
-    <div class="feature-card">  
-      <h4>🧠 Smart Simplicity</h4>  
-      <p>Just write what you feel. Valantine AI turns it into something elegant without complex options or clutter.</p>  
-    </div>  
-  </section>    <section class="testimonials fade">  
-    <h3>People Love Valantine AI 💖</h3>  
-    <p class="quote">“It’s like writing with someone who understands emotions, not just grammar.    
-    My first AI-written poem made me cry.” — <strong>A user from India</strong></p>  
-  </section>    <section class="cta fade">  
-    <h2>Ready to Write from the Heart?</h2>  
-    <p>Join thousands discovering how beautiful writing can be — powered by emotion, guided by AI.</p>  
-    <button class="btn">Start Writing Now</button>  
-  </section>    <footer>  
-    © 2025 <span>Valantine AI</span> — Built for Writers, Dreamers & Creators.  
-  </footer>    <script>  
-    const generateBtn = document.getElementById("generateBtn");  
-    const userInput = document.getElementById("userInput");  
-    const output = document.getElementById("output");  
-  
-    generateBtn.addEventListener("click", () => {  
-      const text = userInput.value.trim();  
-      if (!text) {  
-        output.innerHTML = "Please write something 💭";  
-        return;  
-      }  
-  
-      output.innerHTML = "✨ Generating your personalized response...";  
-      setTimeout(() => {  
-        output.innerHTML = `💖 "${text}" — beautifully rewritten by Valantine AI.`;  
-      }, 1500);  
-    });  
-  </script>  
-</body>  
-</html> 
+</body>
+</html>
