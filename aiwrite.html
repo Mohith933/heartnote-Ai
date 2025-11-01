@@ -6,15 +6,15 @@
   <title>Valantine AI — v1 (Creative Writer)</title>
 
   <!-- Quicksand (Google Fonts) -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg: #ff6b8a;
-      --accent:  #ff8da1;
-      --muted: #f2b6c7;
-      --button: white;
+      --bg: #fff;
+      --text:#000;
+      --accent:  #ff4d6d;
+      --muted: #e63950;
       --card: rgba(255,255,255,0.04);
       --glass: rgba(255,255,255,0.03);
     }
@@ -22,9 +22,9 @@
     html,body{height:100%}
     body{
       margin:0;
-      font-family: 'Poppins', sans-serif;
-      background:linear-gradient(180deg, var(--accent) ,var(--muted),var(--bg));
-      color: #fff;
+      font-family: 'Inter', sans-serif;
+      background:var(--bg);
+      color: var(--text);
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
       display:flex;
@@ -33,6 +33,7 @@
       padding:28px;
       gap:20px;
     }
+    body { scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
 
     /* Layout container */
     .app {
@@ -45,6 +46,8 @@
       padding-right: 0px;
       overflow:hidden;
     }
+    .app { opacity:0; animation: fadeInApp 0.8s ease forwards; }
+@keyframes fadeInApp { to { opacity:1; } }
 
     /* Header */
     .header {
@@ -166,7 +169,7 @@
 
     .toolbar { display:flex; gap:8px; margin-top:10px; }
 
-    .ghost { background:transparent; border:1px solid rgba(255,255,255,0.06); padding:8px 10px; border-radius:8px; color:#ffdfe6; cursor:pointer; }
+    .ghost { background:transparent; border:1px solid #ff4d6d; padding:8px 10px; border-radius:8px; color:#ff4d6d; cursor:pointer; }
 
     /* History (right column) */
     .history {
@@ -269,6 +272,7 @@
           <button class="ghost" id="copyBtn">📋 Copy</button>
           <button class="ghost" id="downloadBtn">⬇ Save .txt</button>
           <button class="ghost" id="addHistoryBtn">⭐ Add to History</button>
+          <button class="ghost" id="clearBtn">🧹 Clear</button>
           <div style="flex:1"></div>
           <div class="muted" id="lenInfo">0 chars</div>
         </div>
@@ -346,7 +350,7 @@ async function writeEffect(html, speed = 10) {
   while (i < text.length) {
     outputEl.insertBefore(document.createTextNode(text[i]), cursor);
     i++;
-    if (i % 3 === 0) await new Promise(r => setTimeout(r, speed)); // smoother
+    if (i % 3 === 0) await new Promise(r => setTimeout(r, speed * 0.8)); // smoother
     outputEl.scrollIntoView({ behavior: "smooth", block: "end" });
   }
 
@@ -498,6 +502,11 @@ document.head.appendChild(style);
         a.remove();
         URL.revokeObjectURL(url);
       });
+      
+      document.getElementById("clearBtn").addEventListener("click", () => {
+  outputEl.innerHTML = '<div class="meta muted">Cleared. Ready for a new idea.</div>';
+  lenInfo.textContent = "0 chars";
+});
 
       // History management
       function loadHistory() {
