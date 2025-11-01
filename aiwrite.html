@@ -20,6 +20,26 @@
 backdrop-filter: blur(10px);
 border: 1px solid rgba(255,255,255,0.1);
     }
+    /* Dark mode theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0e0e0f;
+    --text: #f9f9fb;
+    --accent: #ff5c8d;
+    --muted: #ff7da3;
+    --card: rgba(255, 255, 255, 0.04);
+    --glass: rgba(255, 255, 255, 0.05);
+  }
+}
+
+body.dark {
+  --bg: #0e0e0f;
+  --text: #f9f9fb;
+  --accent: #ff5c8d;
+  --muted: #ff7da3;
+  --card: rgba(255, 255, 255, 0.04);
+  --glass: rgba(255, 255, 255, 0.05);
+}
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -240,6 +260,7 @@ border: 1px solid rgba(255,255,255,0.1);
       <div class="actions">
         <button class="btn" id="saveAllBtn" title="Save last output">Save</button>
         <button class="btn" id="copyAllBtn" title="Copy last output">Copy</button>
+        <button class="btn" id="themeToggle" title="Toggle Dark/Light">🌙</button>
       </div>
     </div>
 
@@ -320,6 +341,9 @@ border: 1px solid rgba(255,255,255,0.1);
       const lenInfo = document.getElementById("lenInfo");
       const saveAllBtn = document.getElementById("saveAllBtn");
       const copyAllBtn = document.getElementById("copyAllBtn");
+
+
+      
 
       // local storage key
       const STORAGE_KEY = "valantine_v1_history";
@@ -596,7 +620,23 @@ document.head.appendChild(style);
         }
       });
 
-    })();
+    });
+    // Theme toggle
+const themeToggle = document.getElementById("themeToggle");
+const userTheme = localStorage.getItem("valantine_theme");
+if (userTheme === "dark") document.body.classList.add("dark");
+
+function updateThemeIcon() {
+  themeToggle.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
+}
+updateThemeIcon();
+
+themeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+  const isDark = document.body.classList.contains("dark");
+  localStorage.setItem("valantine_theme", isDark ? "dark" : "light");
+  updateThemeIcon();
+});
   </script>
 </body>
 </html>
