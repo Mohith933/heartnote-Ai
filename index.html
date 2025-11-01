@@ -3,270 +3,310 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Valantine AI — Write with Emotion</title>
+  <title>Valantine AI 💌</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* 🌈 Base Reset */
+    :root {
+      --bg: #fff;
+      --text: #000;
+      --accent: #ff7aa2;
+      --accent-hover: #ff527c;
+      --glass-bg: rgba(255, 255, 255, 0.15);
+      --glass-border: rgba(255, 255, 255, 0.3);
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
+      font-family: "Poppins", sans-serif;
     }
 
     body {
-      background: linear-gradient(180deg, #ff6b8a, #ff8da1, #ffc2cb);
-      color: white;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
       overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    /* 🌸 Header */
     header {
+      width: 100%;
+      max-width: 1200px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 60px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
+      padding: 1.5rem 2rem;
       position: sticky;
       top: 0;
-      z-index: 10;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--glass-border);
+      z-index: 100;
     }
 
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
     }
 
-    nav a {
-      margin-left: 25px;
-      color: white;
-      text-decoration: none;
-      transition: 0.3s;
-      font-weight: 500;
+    header span {
+      color: var(--accent);
     }
 
-    nav a:hover {
-      text-decoration: underline;
-      color: #ffe6eb;
+    .btn {
+      background: var(--accent);
+      border: none;
+      color: #fff;
+      font-weight: 600;
+      padding: 10px 24px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.3s ease;
     }
 
-    /* 💖 Hero Section */
+    .btn:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
     .hero {
       text-align: center;
-      padding: 100px 20px;
+      margin-top: 4rem;
+      max-width: 900px;
+      padding: 2rem;
     }
 
-    .hero h1 {
-      font-size: 3rem;
-      margin-bottom: 20px;
+    .hero h2 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.3;
     }
 
     .hero p {
       font-size: 1.2rem;
-      opacity: 0.9;
+      color: #444;
+      margin-bottom: 2rem;
     }
 
-    .buttons {
-      margin-top: 40px;
+    .glass-box {
+      background: var(--glass-bg);
+      backdrop-filter: blur(25px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 2rem;
+      width: 85%;
+      max-width: 800px;
+      margin: 2rem auto;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.05);
     }
 
-    .btn {
-      padding: 12px 28px;
-      margin: 10px;
-      border-radius: 25px;
+    textarea {
+      width: 100%;
+      height: 150px;
       border: none;
-      cursor: pointer;
+      outline: none;
+      background: rgba(255, 255, 255, 0.4);
+      padding: 1rem;
+      border-radius: 10px;
       font-size: 1rem;
-      transition: 0.3s;
+      resize: none;
+      color: #333;
     }
 
-    .btn-primary {
-      background: white;
-      color: #ff4f79;
-      font-weight: bold;
+    .generate-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 30px;
+      margin-top: 1rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
     }
 
-    .btn-primary:hover {
-      background: #ffe6eb;
-      transform: scale(1.05);
+    .generate-btn:hover {
+      background: var(--accent-hover);
     }
 
-    .btn-outline {
-      background: transparent;
-      border: 2px solid white;
-      color: white;
+    .output {
+      margin-top: 1.5rem;
+      background: rgba(255, 255, 255, 0.5);
+      padding: 1rem;
+      border-radius: 10px;
+      min-height: 100px;
+      font-style: italic;
+      color: #444;
     }
 
-    .btn-outline:hover {
-      background: white;
-      color: #ff4f79;
-      transform: scale(1.05);
-    }
-
-    /* 🌙 Features Section */
     .features {
-      padding: 80px 10%;
-      text-align: center;
-    }
-
-    .features h2 {
-      font-size: 2.2rem;
-      margin-bottom: 40px;
-    }
-
-    .feature-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
+      gap: 1.5rem;
+      margin: 4rem auto;
+      width: 90%;
+      max-width: 1000px;
     }
 
-    .card {
-      background: rgba(255, 255, 255, 0.15);
-      padding: 25px;
-      border-radius: 20px;
-      transition: 0.3s;
-    }
-
-    .card:hover {
-      transform: translateY(-8px);
-      background: rgba(255, 255, 255, 0.25);
-    }
-
-    .card h3 {
-      font-size: 1.3rem;
-      margin-bottom: 10px;
-    }
-
-    /* 🪞 Demo Section */
-    .demo {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      padding: 80px 10%;
-      border-radius: 30px;
-      margin: 60px 10%;
+    .feature-card {
+      background: rgba(255,255,255,0.6);
+      border: 1px solid rgba(0,0,0,0.05);
+      padding: 2rem;
+      border-radius: 16px;
       text-align: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+      transition: all 0.3s ease;
     }
 
-    .demo input, .demo select {
-      padding: 10px;
-      border-radius: 10px;
-      border: none;
-      margin: 10px;
-      width: 200px;
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
     }
 
-    .demo button {
-      background: white;
-      color: #ff4f79;
-      font-weight: bold;
-      border: none;
-      border-radius: 20px;
-      padding: 10px 25px;
-      cursor: pointer;
-      transition: 0.3s;
+    .feature-card h4 {
+      color: var(--accent);
+      margin-bottom: 0.8rem;
     }
 
-    .demo button:hover {
-      transform: scale(1.05);
-      background: #ffe6eb;
+    .feature-card p {
+      font-size: 0.95rem;
+      color: #555;
     }
 
-    .demo-output {
-      background: rgba(255,255,255,0.15);
-      margin-top: 30px;
-      padding: 20px;
-      border-radius: 15px;
+    .testimonials {
+      text-align: center;
+      background: #f9f9f9;
+      width: 100%;
+      padding: 4rem 2rem;
+    }
+
+    .testimonials h3 {
+      font-size: 1.8rem;
+      color: var(--text);
+      margin-bottom: 2rem;
+    }
+
+    .quote {
+      max-width: 700px;
+      margin: 0 auto;
       font-style: italic;
+      color: #555;
+      font-size: 1.1rem;
+      line-height: 1.6;
     }
 
-    /* 🌹 Footer */
+    .cta {
+      text-align: center;
+      margin: 5rem 0;
+    }
+
+    .cta h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .cta p {
+      color: #444;
+      margin-bottom: 1.5rem;
+    }
+
     footer {
       text-align: center;
-      padding: 40px 20px;
+      padding: 2rem;
       font-size: 0.9rem;
-      background: rgba(255,255,255,0.1);
+      color: #777;
+      margin-top: auto;
     }
 
-    footer a {
-      color: white;
-      text-decoration: none;
-      margin: 0 10px;
+    footer span {
+      color: var(--accent);
+      font-weight: 600;
     }
 
-    footer a:hover {
-      text-decoration: underline;
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
     }
 
-    @media (max-width: 600px) {
-      .hero h1 { font-size: 2rem; }
-      header { flex-direction: column; }
-      nav a { margin: 10px; }
+    .fade {
+      animation: fadeIn 1s ease forwards;
     }
+
   </style>
 </head>
-
 <body>
-  <!-- 🌸 HEADER -->
   <header>
-    <div class="logo">💞 Valantine AI</div>
-    <nav>
-      <a href="#herp">Home</a>
-      <a href="#features">Features</a>
-      <a href="#">About</a>
-      <a href="#">Contact</a>
-    </nav>
+    <h1>Valantine<span>AI</span></h1>
+    <button class="btn">Sign In</button>
   </header>
 
-  <!-- 💖 HERO -->
-  <section class="hero">
-    <h1>Where Words Meet Feelings</h1>
-    <p>A personal AI writer that understands your heart.</p>
-    <div class="buttons">
-      <button class="btn btn-primary"><a href="aiwrite.html">Start Writing</a></button>
-      <button class="btn btn-outline">Watch Demo</button>
+  <section class="hero fade">
+    <h2>Write with Emotion. Create with Intelligence.</h2>
+    <p>Your personal AI writer for love letters, poems, resumes, and quotes —  
+    designed to make your words *feel alive*.</p>
+    <button class="btn">Get Started</button>
+  </section>
+
+  <div class="glass-box fade">
+    <h3>Try Valantine AI 💬</h3>
+    <textarea id="userInput" placeholder="Write your idea or feeling..."></textarea>
+    <button class="generate-btn" id="generateBtn">Generate Magic</button>
+    <div class="output" id="output"></div>
+  </div>
+
+  <section class="features fade">
+    <div class="feature-card">
+      <h4>🩷 Emotional Writing</h4>
+      <p>Valantine AI understands your mood — crafting love letters, poems, and personal notes that truly express your heart.</p>
+    </div>
+    <div class="feature-card">
+      <h4>🎨 Creative + Professional</h4>
+      <p>Switch between heartfelt writing and career-focused tone for resumes, bios, and introductions effortlessly.</p>
+    </div>
+    <div class="feature-card">
+      <h4>🧠 Smart Simplicity</h4>
+      <p>Just write what you feel. Valantine AI turns it into something elegant without complex options or clutter.</p>
     </div>
   </section>
 
-  <!-- 🌙 FEATURES -->
-  <section class="features">
-    <h2>Why Choose Valantine AI?</h2>
-    <div class="feature-grid">
-      <div class="card">
-        <h3>💌 Creative Writer</h3>
-        <p>Generate poems, letters, or reflections in seconds.</p>
-      </div>
-      <div class="card">
-        <h3>🌙 Emotion Control</h3>
-        <p>Adjust emotional depth and personalize your style.</p>
-      </div>
-      <div class="card">
-        <h3>💼 Dual Purpose</h3>
-        <p>Write for your heart or your career — both supported.</p>
-      </div>
-    </div>
+  <section class="testimonials fade">
+    <h3>People Love Valantine AI 💖</h3>
+    <p class="quote">“It’s like writing with someone who understands emotions, not just grammar.  
+    My first AI-written poem made me cry.” — <strong>A user from India</strong></p>
   </section>
 
-  <!-- 🪞 DEMO -->
-  <section class="demo">
-    <h2>Try it now 💖</h2>
-    <input type="text" placeholder="Enter a topic (e.g. Moon)">
-    <select>
-      <option>Poem</option>
-      <option>Letter</option>
-      <option>Quote</option>
-    </select>
-    <button>Generate</button>
-    <div class="demo-output">
-      “Under the hush of Moon, I whisper in wonder…”
-    </div>
+  <section class="cta fade">
+    <h2>Ready to Write from the Heart?</h2>
+    <p>Join thousands discovering how beautiful writing can be — powered by emotion, guided by AI.</p>
+    <button class="btn">Start Writing Now</button>
   </section>
 
-  <!-- 🌹 FOOTER -->
   <footer>
-    Valantine AI © 2025 | Made with ❤️ in India<br>
-    <a href="#">Terms</a> | <a href="#">Privacy</a> | <a href="#">Contact</a>
+    © 2025 <span>Valantine AI</span> — Built for Writers, Dreamers & Creators.
   </footer>
 
+  <script>
+    const generateBtn = document.getElementById("generateBtn");
+    const userInput = document.getElementById("userInput");
+    const output = document.getElementById("output");
+
+    generateBtn.addEventListener("click", () => {
+      const text = userInput.value.trim();
+      if (!text) {
+        output.innerHTML = "Please write something 💭";
+        return;
+      }
+
+      output.innerHTML = "✨ Generating your personalized response...";
+      setTimeout(() => {
+        output.innerHTML = `💖 "${text}" — beautifully rewritten by Valantine AI.`;
+      }, 1500);
+    });
+  </script>
 </body>
 </html>
