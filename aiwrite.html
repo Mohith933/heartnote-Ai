@@ -247,8 +247,9 @@ body.dark {
       <div class="brand" aria-hidden="true">  
         <div class="heart">💞</div>  
         <div>  
-          <div style="font-size:1.05rem">Valantine AI</div>  
-          <div style="font-size:0.78rem; color:var(--accent); margin-top:4px">Creative Writer — v1</div>  
+          <div style="font-size:0.78rem; color:var(--accent); margin-top:4px">
+  Personal Writer — v1
+</div>
         </div>  
       </div>  
   
@@ -264,12 +265,12 @@ body.dark {
       <div class="panel" aria-live="polite">  
         <label for="mode">Mode</label>  
         <div class="controls">  
-          <select id="mode" aria-label="Choose mode">  
-            <option value="poem">Poem</option>  
-            <option value="letter">Letter</option>  
-            <option value="quote">Quote</option>  
-            <option value="resume">Resume (short)</option>  
-          </select>  
+          <select id="mode" aria-label="Choose mode">
+  <option value="reflection">Reflection</option>
+  <option value="journal">Journal</option>
+  <option value="note">Note</option>
+  <option value="affirmation">Affirmation</option>
+</select>  
         </div>  
   
         <label for="prompt" style="margin-top:12px">Prompt (topic / few words)</label>  
@@ -392,71 +393,72 @@ style.textContent = `
 }`;  
 document.head.appendChild(style);  
   
-      // small content generator — rule-based templates with prompt + emotion influence  
-      function generateContent(prompt, mode, emotion) {  
-        prompt = (prompt||"").trim();  
-        const mood = clamp(parseInt(emotion,10),0,100);  
-        const intensity = mood / 100; // 0..1  
-  
-        // helper to tone words based on intensity  
-        function tone(baseSoft, baseBalanced, baseDeep) {  
-          if (intensity < 0.25) return baseSoft;  
-          if (intensity < 0.6) return baseBalanced;  
-          return baseDeep;  
-        }  
-  
-        // create a short descriptor from prompt  
-        const topic = prompt || "a gentle idea";  
-        const topicPhrase = prompt ? `"${prompt}"` : "your thought";  
-  
-        // Mode-based generation  
-        if (mode === "poem") {  
-          const line1 = `Under the hush of ${topic}, I whisper ${tone("softly","in wonder","with fire")}.`;  
-          const line2 = `Your name — a lantern thrown across a cold sky, ${tone("glows","shimmers","blazes")}.`;  
-          const line3 = `We stitch the hours with breath and song; ${tone("a tender hush","a smiling memory","a fervent vow")}.`;  
-          const closer = `— For ${topicPhrase}, with all my small heart.`;  
-          return `<h2>🌺 Poem</h2>\n<p>${line1}\n<br>${line2}\n<br>${line3}\n<br><strong>${closer}</strong></p>`;  
-        }  
-  
-        if (mode === "letter") {  
-          const opener = `Dear friend,`;  
-          const body = tone(  
-            `I hope this note finds you warm and calm. I've been thinking of ${topic}, and wanted to reach out with a soft hello.`,  
-            `I hope you're well. Lately I've been reflecting on ${topic} and I felt compelled to share some honest thoughts.`,  
-            `I must say plainly — ${topic} has been on my mind, and it wakes something fierce inside me.`  
-          );  
-          const closer = tone(  
-            `With gentle regards,\nValantine`,  
-            `Warmly,\nValantine`,  
-            `Always yours,\nValantine`  
-          );  
-          return `<h2>💌 Letter</h2>\n<pre style="white-space:pre-wrap">${opener}\n\n${body}\n\n${closer}</pre>`;  
-        }  
-  
-        if (mode === "quote") {  
-          const quote = tone(  
-            `Softness reveals what force cannot — love whispers truth.`,  
-            `How we hold each other shapes how we become.`,  
-            `Burn boldly; the quiet soul wins by relentlessness of heart.`  
-          );  
-          return `<h2>✨ Quote</h2>\n<p>“${quote}”<br><em>— about ${topic}</em></p>`;  
-        }  
-  
-        if (mode === "resume") {  
-          // simple short resume/project snippet  
-          const title = prompt || "Your Project / Role";  
-          const objective = tone(  
-            `A thoughtful contributor focused on steady improvement.`,  
-            `A pragmatic creator who shapes ideas into working outcomes.`,  
-            `A driven founder pushing bold experiments to real impact.`  
-          );  
-          const tech = `Technologies: HTML, CSS, JavaScript, (add others)`;  
-          return `<h2>📘 Resume / Project</h2>\n<pre style="white-space:pre-wrap"><strong>${title}</strong>\n\nObjective:\n${objective}\n\n${tech}\n\nOutcome:\nDelivered a first version and received user feedback.</pre>`;  
-        }  
-  
-        // fallback  
-        return `<p>💬 I’m here to help — try selecting a mode and writing a short prompt.</p>`;  
-      }  
+      // --- Updated generation logic for Valantine AI (Personal Writer v1) ---
+function generateContent(prompt, mode, emotion) {
+  prompt = (prompt || "").trim();
+  const mood = clamp(parseInt(emotion, 10), 0, 100);
+  const intensity = mood / 100; // 0..1
+
+  function tone(soft, balanced, deep) {
+    if (intensity < 0.3) return soft;
+    if (intensity < 0.6) return balanced;
+    return deep;
+  }
+
+  const topic = prompt || "today";
+
+  // 🌅 Reflection (short thoughtful writing)
+  if (mode === "poem" || mode === "reflection") {
+    const line1 = tone(
+      `Sometimes I pause and notice ${topic}, just breathing quietly.`,
+      `Thinking of ${topic}, I realize how simple moments shape the day.`,
+      `In ${topic}, I find echoes of what I’m still learning to understand.`
+    );
+    const line2 = tone(
+      `Maybe it’s okay to move slowly.`,
+      `Maybe calm doesn’t mean stopping — just seeing clearly.`,
+      `Even in chaos, something inside me stays gentle.`
+    );
+    return `<h2>🌤️ Reflection</h2><p>${line1}<br>${line2}</p>`;
+  }
+
+  // 📖 Journal (short diary)
+  if (mode === "letter" || mode === "journal") {
+    const start = tone(
+      `It was a quiet day — ${topic} stayed on my mind.`,
+      `Today, ${topic} made me think about how I’m growing.`,
+      `${topic} reminded me that every challenge teaches something real.`
+    );
+    const end = tone(
+      `I’ll rest tonight knowing I did enough.`,
+      `Tomorrow is a new start — I’ll carry this feeling gently.`,
+      `I might not have all answers, but I’m proud of how far I’ve come.`
+    );
+    return `<h2>📔 Journal</h2><pre>${start}\n\n${end}</pre>`;
+  }
+
+  // 💬 Note (small message)
+  if (mode === "quote" || mode === "note") {
+    const msg = tone(
+      `Breathe — you’re already doing enough.`,
+      `Progress isn’t loud. Keep going quietly, it matters.`,
+      `Your calm strength is the loudest voice in the room.`
+    );
+    return `<h2>💬 Note</h2><p>“${msg}”</p>`;
+  }
+
+  // 🌿 Affirmation
+  if (mode === "resume" || mode === "affirmation") {
+    const line = tone(
+      `I’m learning to trust myself, even when I feel unsure.`,
+      `I can create something good each day, no matter how small.`,
+      `I’m stronger than I think — each setback becomes direction.`
+    );
+    return `<h2>🌿 Affirmation</h2><p>${line}</p>`;
+  }
+
+  return `<p>💭 Try writing a few words like "a quiet morning" or "after exam" to start reflecting.</p>`;
+}
   
       // Generate button handler  
       generateBtn.addEventListener("click", async () => {  
