@@ -3,7 +3,7 @@
 <head>  
   <meta charset="utf-8" />  
   <meta name="viewport" content="width=device-width,initial-scale=1" />  
-  <title>Valantine AI — v1 (Creative Writer)</title>  
+  <title>HeartNote AI — H1 (Creative Writer)</title>  
   
   <!-- Quicksand (Google Fonts) -->  
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">  
@@ -242,14 +242,14 @@ body.dark {
   </style>  
 </head>  
 <body>  
-  <div class="app" role="application" aria-label="Valantine AI v1">  
+  <div class="app" role="application" aria-label="HeartNote AI h1">  
     <div class="header">  
       <div class="brand" aria-hidden="true">  
         <div class="heart">💞</div>  
         <div>  
-          <div style="font-size:1.05rem">Valantine AI</div>    
+          <div style="font-size:1.05rem">HeartNote AI</div>    
           <div style="font-size:0.78rem; color:var(--accent); margin-top:4px">
-  Personal Writer — v1
+  Personal Writer — h1
 </div>
         </div>  
       </div>  
@@ -326,7 +326,7 @@ body.dark {
   </div>  
   
   <script>  
-    // Simple Valantine AI v1 — client-side  
+    // Simple HeartNote AI h1 — client-side  
     (function () {  
       const modeEl = document.getElementById("mode");  
       const promptEl = document.getElementById("prompt");  
@@ -344,7 +344,7 @@ body.dark {
       const copyAllBtn = document.getElementById("copyAllBtn");  
   
       // local storage key  
-      const STORAGE_KEY = "valantine_v1_history";  
+      const STORAGE_KEY = "heartnote_h1_history";  
   
       // helpers  
       function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }  
@@ -398,7 +398,7 @@ style.textContent = `
 }`;  
 document.head.appendChild(style);  
   
-      // --- Updated generation logic for Valantine AI (Personal Writer v1) ---
+      // --- Updated generation logic for HeartNote AI (Personal Writer v1) ---
 function generateContent(prompt, mode, emotion) {
   prompt = (prompt || "").trim();
   const mood = clamp(parseInt(emotion, 10), 0, 100);
@@ -563,7 +563,7 @@ function generateContent(prompt, mode, emotion) {
         const url = URL.createObjectURL(blob);  
         const a = document.createElement("a");  
         a.href = url;  
-        a.download = "valantine_output.txt";  
+        a.download = "heartnote_output.txt";  
         document.body.appendChild(a);  
         a.click();  
         a.remove();  
