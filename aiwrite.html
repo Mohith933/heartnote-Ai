@@ -718,23 +718,74 @@ themeToggle.addEventListener("click", () => {
   localStorage.setItem("valantine_theme", isDark ? "dark" : "light");
   updateThemeIcon();
 });
-  const suggestions = [
-  "moonlight love",
-  "letter to my future self",
-  "apology to sister",
-  "midnight thoughts",
-  "friendship memories",
-  "lost and found love",
-  "dreams under stars",
-  "gratitude to parents",
-  "hope after heartbreak",
-  "promise to tomorrow"
-];
+ // All suggestion sets grouped by mode
+const suggestionSets = {
+  reflection: [
+    "what I learned from failure",
+    "moments that changed me",
+    "the day I felt proud",
+    "why I forgive myself",
+    "what peace means to me"
+  ],
+  journal: [
+    "today's best moment",
+    "a memory I can't forget",
+    "my biggest goal this week",
+    "how I feel right now",
+    "gratitude for someone today"
+  ],
+  note: [
+    "reminder to stay calm",
+    "things I want to improve",
+    "a note for my future self",
+    "list of little wins today",
+    "a note to someone I miss"
+  ],
+  affirmation: [
+    "I am becoming stronger each day",
+    "I am worthy of love and peace",
+    "I trust the process of my life",
+    "I am capable and confident",
+    "I choose happiness over fear"
+  ],
+  poem: [
+    "moonlight over my window",
+    "whispers of the rain",
+    "the first touch of love",
+    "hope in the silence",
+    "a smile that stayed"
+  ],
+  story: [
+    "a day that changed everything",
+    "the stranger who helped me",
+    "a letter lost and found",
+    "a dream that came true",
+    "the night I chose courage"
+  ],
+  letter: [
+    "letter to my younger self",
+    "apology to a friend",
+    "thank you to my parents",
+    "goodbye to an old version of me",
+    "love letter to the future"
+  ],
+  quote: [
+    "kindness grows in quiet hearts",
+    "fail fast, learn faster",
+    "every storm teaches peace",
+    "love isn’t loud, it’s consistent",
+    "believe again, even after breaking"
+  ]
+};
 
+// Mode selector + button handler
 document.getElementById("suggestBtn").addEventListener("click", () => {
-  const random = suggestions[Math.floor(Math.random() * suggestions.length)];
+  const modes = document.getElementById("mode").value; // e.g. "poem", "journal"
+  const list = suggestionSets[modes];
+  const random = list[Math.floor(Math.random() * list.length)];
   document.getElementById("prompt").value = random;
 });
+
   </script>  
 </body>  
 </html> 
