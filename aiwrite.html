@@ -279,7 +279,9 @@ body.dark {
         </div>  
   
         <label for="prompt" style="margin-top:12px">Prompt (topic / few words)</label>  
-        <textarea id="prompt" placeholder="e.g. moonlight love, apology to a friend, product launch"></textarea>  
+        <textarea id="prompt" placeholder="e.g. moonlight love, apology to a friend, product launch"></textarea>
+        <button id="suggestBtn">Suggest ✨</button>
+
   
         <div class="row" style="margin-top:12px; align-items:center;">  
           <div style="flex:1">  
@@ -702,6 +704,23 @@ themeToggle.addEventListener("click", () => {
   const isDark = document.body.classList.contains("dark");
   localStorage.setItem("valantine_theme", isDark ? "dark" : "light");
   updateThemeIcon();
+});
+  const suggestions = [
+  "moonlight love",
+  "letter to my future self",
+  "apology to sister",
+  "midnight thoughts",
+  "friendship memories",
+  "lost and found love",
+  "dreams under stars",
+  "gratitude to parents",
+  "hope after heartbreak",
+  "promise to tomorrow"
+];
+
+document.getElementById("suggestBtn").addEventListener("click", () => {
+  const random = suggestions[Math.floor(Math.random() * suggestions.length)];
+  document.getElementById("prompt").value = random;
 });
   </script>  
 </body>  
