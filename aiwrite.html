@@ -427,55 +427,60 @@ function generateContent(prompt, mode, emotion) {
 
   const topic = prompt || "today";
 
-  // 🌅 Reflection
+   // --- 🌤️ Reflection Mode (Focus: Contemplation and Specific Observation) ---
   if (mode === "reflection") {
-    const line1 = tone(
-      `Sometimes I pause and notice ${topic}, just breathing quietly.`,
-      `Thinking of ${topic}, I realize how simple moments shape the day.`,
-      `In ${topic}, I find echoes of what I’m still learning to understand.`
+    const opening = tone(
+      `I'm pausing to let the weight of **${topic}** settle gently. Sometimes, the softest moments hold the clearest answers, reminding me that even today, I am moving forward.`,
+      `Thinking deeply about **${topic}**, I realize how much energy goes into resisting what is. True clarity isn't about solving every problem right now, but about observing the process itself.`,
+      `In the quiet echo of **${topic}**, I find a profound lesson. This challenge is revealing a strength I didn't know I had, shaping the core of what I’m still learning to understand about myself and my purpose.`
     );
-    const line2 = tone(
-      `Maybe it’s okay to move slowly.`,
-      `Maybe calm doesn’t mean stopping — just seeing clearly.`,
-      `Even in chaos, something inside me stays gentle.`
+    const closing = tone(
+      `Maybe the goal isn’t speed, but simply being present in the moment.`,
+      `Maybe true calm isn’t the absence of chaos—it’s seeing clearly through it.`,
+      `Even in the greatest chaos, the deepest part of my intention stays gentle and true.`
     );
-    return `<h2>🌤️ Reflection</h2><p>${line1}<br>${line2}</p>`;
+    return `<h2>🌤️ Reflection </h2><pre>${opening}\n\n${closing}</pre>`;
   }
 
-  // 📔 Journal
+  // --- 📔 Journal Mode (Focus: Emotional Processing and Growth) ---
   if (mode === "journal") {
+    const entryDate = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     const start = tone(
-      `It was a quiet day — ${topic} stayed on my mind.`,
-      `Today, ${topic} made me think about how I’m growing.`,
-      `${topic} reminded me that every challenge teaches something real.`
+      `Date: ${entryDate}\n\nIt was a challenging day. **${topic}** stayed on my mind, but I was able to manage it by focusing on small, controllable steps. I feel a quiet sense of release now.`,
+      `Date: ${entryDate}\n\nToday, **${topic}** brought up some complex feelings, making me think about my personal boundaries and how I’m growing. I'm exploring the difficulty without judgment.`,
+      `Date: ${entryDate}\n\nThis entry is dedicated to processing **${topic}**. This situation challenged me at my core, but every challenge teaches something essential and real about who I am and what I value. This is where the work begins.`
     );
     const end = tone(
-      `I’ll rest tonight knowing I did enough.`,
-      `Tomorrow is a new start — I’ll carry this feeling gently.`,
-      `I might not have all answers, but I’m proud of how far I’ve come.`
+      `I’ll rest tonight knowing I navigated today with kindness and did enough.`,
+      `Tomorrow is a new start—I'll carry the lessons from **${topic}** gently into the morning.`,
+      `I might not have all the answers right now, but I’m proud of the emotional space I’ve carved out to process this.`
     );
-    return `<h2>📔 Journal</h2><pre>${start}\n\n${end}</pre>`;
+    return `<h2>📔 Journal </h2><pre>${start}\n\n${end}</pre>`;
   }
 
-  // 💬 Note
+  // --- 💬 Note Mode (Focus: Targeted, Empowering Message) ---
   if (mode === "note") {
     const msg = tone(
-      `Breathe — you’re already doing enough.`,
-      `Progress isn’t loud. Keep going quietly, it matters.`,
-      `Your calm strength is the loudest voice in the room.`
+      `A quiet reminder: Breathe. You have handled **${topic}** with grace, and you are already doing enough. Be kind to yourself today.`,
+      `Remember your focus. Progress isn’t loud, it’s consistent. Keep going quietly, especially in the face of **${topic}**—your steady effort matters.`,
+      `The deepest confidence comes from within. Your calm strength is the loudest voice in the room, capable of navigating anything related to **${topic}**.`
     );
-    return `<h2>💬 Note</h2><p>“${msg}”</p>`;
+    return `<h2>💬 Note </h2><p>“${msg}”</p>`;
   }
 
-  // 🌿 Affirmation
+  // --- 🌿 Affirmation Mode (Focus: Self-Empowerment and Specific Intent) ---
   if (mode === "affirmation") {
     const line = tone(
-      `I’m learning to trust myself, even when I feel unsure.`,
-      `I can create something good each day, no matter how small.`,
-      `I’m stronger than I think — each setback becomes direction.`
+      `I'm learning to trust myself with the discomfort of **${topic}**. I am safe, even when I feel unsure.`,
+      `I can create something good each day, no matter how small, and that effort is enough to handle **${topic}** with dignity.`,
+      `I am stronger than I think. Every setback and difficulty related to **${topic}** becomes a clear direction toward my highest self.`
     );
-    return `<h2>🌿 Affirmation</h2><p>${line}</p>`;
+    return `<h2>🌿 Affirmation </h2><p>${line}</p>`;
   }
+
+  // Default prompt (from previous code)
+  return `<p>💭 Try typing a few words like "a quiet morning" or "love story" to start writing.</p>`;
+}
 
   // --- ✉️ Letter Mode (Focus: Functional Content and Relationship) ---
   if (mode === "letter") {
