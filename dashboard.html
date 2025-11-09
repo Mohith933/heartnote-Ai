@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <title>HeartNote AI — Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #ff4d6d;
+      --accent-dark: #e63950;
+      --bg: #ffffff;
+      --text: #222222;
+      --card: #fff;
+      --muted: #f9f9f9;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0d0d0d;
+        --text: #f5f5f5;
+        --card: #1a1a1a;
+        --muted: #141414;
+        --accent: #ff668a;
+        --accent-dark: #ff4d6d;
+      }
+    }
+
+    * {margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;transition:background .3s,color .3s;}
+    body {
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ===== Sidebar ===== */
+    .sidebar {
+      width: 230px;
+      background: var(--card);
+      border-right: 1px solid rgba(0,0,0,0.05);
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: fixed;
+      top: 0; bottom: 0; left: 0;
+    }
+
+    .sidebar .logo {
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: var(--accent);
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .menu a {
+      display: block;
+      padding: 12px 14px;
+      border-radius: 10px;
+      color: var(--text);
+      text-decoration: none;
+      margin-bottom: 6px;
+      font-weight: 500;
+      opacity: 0.85;
+      transition: all .2s;
+    }
+
+    .menu a:hover,
+    .menu a.active {
+      background: var(--accent);
+      color: #fff;
+      opacity: 1;
+    }
+
+    .upgrade-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    .upgrade-btn:hover { background: var(--accent-dark); }
+
+    /* ===== Main Area ===== */
+    .main {
+      margin-left: 230px;
+      flex: 1;
+      padding: 40px 60px;
+      background: var(--muted);
+      min-height: 100vh;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    .topbar h1 {
+      color: var(--accent);
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+
+    .toggle-buttons button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 500;
+      background: var(--card);
+      color: var(--text);
+      margin-left: 8px;
+      transition: all 0.2s;
+    }
+
+    .toggle-buttons .active {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* Search Bar */
+    .search-bar {
+      position: relative;
+      margin-bottom: 40px;
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.1);
+      font-size: 15px;
+      background: var(--card);
+      color: var(--text);
+      outline: none;
+    }
+
+    /* Section Title */
+    .section-title {
+      font-size: 1.3rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+
+    /* Cards Grid */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--card);
+      padding: 22px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      transition: transform .2s ease;
+    }
+
+    .card:hover { transform: translateY(-4px); }
+
+    .card-icon {
+      font-size: 28px;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .card h3 {
+      font-size: 1.1rem;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      padding: 20px;
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    @media(max-width: 768px){
+      .sidebar {display:none;}
+      .main {margin:0;padding:30px;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div>
+      <div class="logo">💞 HeartNote AI</div>
+     <nav class="menu"> <a href="#" class="active">🏠 Dashboard</a> <a href="#">🌿 Reflection</a> <a href="#">📖 Journal</a> <a href="#">🌈 Affirmation</a> <a href="#">📝 Notes</a> <a href="#">💌 Letters</a> <a href="#">🪶 Poems</a> <a href="#">✨ Story</a> <a href="#">💭 Quotes</a> </nav>
+    </div>
+    <button class="upgrade-btn">Upgrade to Pro 💗</button>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+    <div class="topbar">
+      <h1>Welcome Back, Reynold! 👋</h1>
+      <div class="toggle-buttons">
+        <button class="active">Text</button>
+      </div>
+    </div>
+
+    <div class="search-bar">
+      <input type="text" placeholder="Search HeartNote tools or emotions..." />
+    </div>
+
+    <div class="section-title">Popular Tools</div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🪶</div>
+        <h3>AI Writer</h3>
+        <p>Create beautiful, emotion-filled writings for personal or social sharing.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">💌</div>
+        <h3>Love Letter Maker</h3>
+        <p>Express heartfelt feelings through poetic and genuine AI-crafted letters.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌸</div>
+        <h3>Mood Journal</h3>
+        <p>Reflect daily emotions with guided writing and gentle self-discovery.</p>
+      </div>
+    </div>
+
+    <footer>© 2025 HeartNote AI — Designed with 💗 by Solulure Labs</footer>
+  </main>
+
+  <script>
+    const buttons = document.querySelectorAll('.toggle-buttons button');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
