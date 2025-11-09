@@ -48,58 +48,65 @@
     .main{margin-left:230px;flex:1;padding:40px 60px;background:var(--muted);min-height:100vh;}
     .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;}
     .topbar h1{color:var(--accent);font-size:1.6rem;font-weight:700;}
-    .search-bar {
+    ..search-bar {
   position: relative;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  max-width: 400px;
+  margin-bottom: 20px;
 }
 
 .search-bar .search-icon {
   position: absolute;
-  left: 12px;
-  font-size: 1rem;
-  color: var(--muted, #888);
-  pointer-events: none;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+  opacity: 0.6;
 }
 
 .search-bar input {
   width: 100%;
-  padding: 10px 12px 10px 36px; /* space for icon */
-  border: 1.5px solid var(--border, #ddd);
-  border-radius: 10px;
-  font-size: 1rem;
-  background: var(--bg, #fff);
-  color: var(--text, #222);
-  transition: border 0.2s;
+  padding: 12px 16px 12px 38px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.1);
+  font-size: 15px;
+  background: var(--card);
+  color: var(--text);
+  outline: none;
+  transition: box-shadow 0.2s;
 }
 
 .search-bar input:focus {
-  outline: none;
-  border-color: var(--accent, #ff6b81);
+  box-shadow: 0 0 0 2px var(--accent);
 }
+
 .tool-list {
-  display: grid;
+  display: none;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 12px;
-  margin-top: 20px;
+  background: var(--muted);
+  border-radius: 12px;
+  padding: 14px;
+  animation: fadeIn 0.3s ease;
 }
 
 .tool-item {
-  background: var(--card, #fff);
-  padding: 12px 14px;
+  background: var(--card);
+  padding: 10px 12px;
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  transition: transform 0.2s, background 0.3s;
   cursor: pointer;
+  transition: transform 0.2s, background 0.3s;
 }
 
 .tool-item:hover {
-  transform: translateY(-3px);
-  background: var(--hover, #ffecef);
+  transform: translateY(-2px);
+  background: var(--accent);
+  color: #fff;
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
     /* Cards */
     .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;}
     .card{background:var(--card);padding:22px;border-radius:16px;box-shadow:0 4px 12px rgba(0,0,0,0.06);cursor:pointer;transition:transform .2s;}
@@ -329,20 +336,35 @@
       navigator.clipboard.writeText(text);
       alert("Copied to clipboard 💗");
     }
- const searchInput = document.getElementById('searchInput');
-  const tools = document.querySelectorAll('.tool-item');
+  const searchInput = document.getElementById('searchInput');
+  const toolList = document.getElementById('toolList');
+  const tools = toolList.querySelectorAll('.tool-item');
+
+  // Hide tool list initially
+  toolList.style.display = 'none';
 
   searchInput.addEventListener('input', () => {
     const query = searchInput.value.toLowerCase().trim();
+
+    if (query === '') {
+      toolList.style.display = 'none';
+      return;
+    }
+
+    let matchFound = false;
 
     tools.forEach(tool => {
       const text = tool.textContent.toLowerCase();
       if (text.includes(query)) {
         tool.style.display = 'block';
+        matchFound = true;
       } else {
         tool.style.display = 'none';
       }
     });
+
+    // Show or hide tool list based on matches
+    toolList.style.display = matchFound ? 'grid' : 'none';
   });
   </script>
 </body>
