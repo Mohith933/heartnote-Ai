@@ -28,252 +28,80 @@
     }
 
     * {margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;transition:background .3s,color .3s;}
-    body {
-      background: var(--bg);
-      color: var(--text);
-      display: flex;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+    body {background:var(--bg);color:var(--text);display:flex;min-height:100vh;overflow-x:hidden;}
 
-    /* ===== Sidebar ===== */
+    /* Sidebar */
     .sidebar {
-      width: 230px;
-      background: var(--card);
-      border-right: 1px solid rgba(0,0,0,0.05);
-      padding: 30px 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: fixed;
-      top: 0; bottom: 0; left: 0;
+      width:230px;background:var(--card);
+      border-right:1px solid rgba(0,0,0,0.05);
+      padding:30px 20px;
+      display:flex;flex-direction:column;justify-content:space-between;
+      position:fixed;top:0;bottom:0;left:0;
     }
+    .logo{font-weight:700;font-size:1.3rem;color:var(--accent);margin-bottom:40px;display:flex;align-items:center;gap:8px;}
+    .menu a{display:block;padding:12px 14px;border-radius:10px;color:var(--text);text-decoration:none;margin-bottom:6px;font-weight:500;opacity:0.85;transition:all .2s;}
+    .menu a:hover,.menu a.active{background:var(--accent);color:#fff;opacity:1;}
+    .upgrade-btn{background:var(--accent);color:#fff;border:none;padding:12px;border-radius:10px;font-weight:600;cursor:pointer;transition:background .2s;}
+    .upgrade-btn:hover{background:var(--accent-dark);}
 
-    .sidebar .logo {
-      font-weight: 700;
-      font-size: 1.3rem;
-      color: var(--accent);
-      margin-bottom: 40px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    /* Main area */
+    .main{margin-left:230px;flex:1;padding:40px 60px;background:var(--muted);min-height:100vh;}
+    .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;}
+    .topbar h1{color:var(--accent);font-size:1.6rem;font-weight:700;}
+    .search-bar{margin-bottom:40px;}
+    .search-bar input{width:100%;padding:14px 18px;border-radius:12px;border:1px solid rgba(0,0,0,0.1);font-size:15px;background:var(--card);color:var(--text);outline:none;}
+
+    /* Cards */
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;}
+    .card{background:var(--card);padding:22px;border-radius:16px;box-shadow:0 4px 12px rgba(0,0,0,0.06);cursor:pointer;transition:transform .2s;}
+    .card:hover{transform:translateY(-4px);}
+    .card-icon{font-size:28px;color:var(--accent);margin-bottom:10px;}
+    .card h3{font-size:1.1rem;color:var(--accent);margin-bottom:8px;}
+    .card p{font-size:.9rem;opacity:.85;}
+
+    /* Workspace */
+    .workspace{display:none;animation:fadeIn .3s ease;}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+    .workspace.active{display:block;}
+    .form-section label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: var(--accent);
+}
+.copy-btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: background 0.2s;
+}
+.copy-btn:hover {
+  background: var(--accent-dark);
+}
+
+    .form-container{display:flex;gap:30px;flex-wrap:wrap;}
+    .form-section,.playground-section{background:var(--card);padding:24px;border-radius:14px;flex:1;min-width:300px;}
+    .form-section input,.form-section textarea,.form-section select{
+      width:100%;margin-bottom:14px;padding:12px;border-radius:10px;
+      border:1px solid rgba(0,0,0,0.1);background:var(--muted);color:var(--text);
     }
+    .form-section button{background:var(--accent);color:#fff;padding:12px 18px;border-radius:10px;border:none;font-weight:600;cursor:pointer;}
+    .form-section button:hover{background:var(--accent-dark);}
+    .playground-section h3{color:var(--accent);margin-bottom:10px;}
+    .output{font-family:'Patrick Hand',cursive;white-space:pre-wrap;font-size:1.05rem;line-height:1.6;color:var(--text);padding-top:10px;}
+    .back-btn{background:none;color:var(--accent);border:none;font-weight:600;cursor:pointer;text-decoration:underline;margin-bottom:15px;}
+    footer{text-align:center;margin-top:50px;padding:20px;font-size:.9rem;opacity:.7;}
 
-    .menu a {
-      display: block;
-      padding: 12px 14px;
-      border-radius: 10px;
-      color: var(--text);
-      text-decoration: none;
-      margin-bottom: 6px;
-      font-weight: 500;
-      opacity: 0.85;
-      transition: all .2s;
-    }
-
-    .menu a:hover,
-    .menu a.active {
-      background: var(--accent);
-      color: #fff;
-      opacity: 1;
-    }
-
-    .upgrade-btn {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      padding: 12px;
-      border-radius: 10px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background .2s;
-    }
-
-    .upgrade-btn:hover { background: var(--accent-dark); }
-
-    /* ===== Main Area ===== */
-    .main {
-      margin-left: 230px;
-      flex: 1;
-      padding: 40px 60px;
-      background: var(--muted);
-      min-height: 100vh;
-    }
-
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 40px;
-    }
-
-    .topbar h1 {
-      color: var(--accent);
-      font-size: 1.6rem;
-      font-weight: 700;
-    }
-
-    .toggle-buttons button {
-      padding: 8px 16px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: 500;
-      background: var(--card);
-      color: var(--text);
-      margin-left: 8px;
-      transition: all 0.2s;
-    }
-
-    .toggle-buttons .active {
-      background: var(--accent);
-      color: #fff;
-    }
-
-    /* Search Bar */
-    .search-bar {
-      position: relative;
-      margin-bottom: 40px;
-    }
-
-    .search-bar input {
-      width: 100%;
-      padding: 14px 18px;
-      border-radius: 12px;
-      border: 1px solid rgba(0,0,0,0.1);
-      font-size: 15px;
-      background: var(--card);
-      color: var(--text);
-      outline: none;
-    }
-
-    /* Cards View */
-    .section-title {
-      font-size: 1.3rem;
-      color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 18px;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
-      gap: 24px;
-    }
-
-    .card {
-      background: var(--card);
-      padding: 22px;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-      transition: transform .2s ease;
-      cursor: pointer;
-    }
-
-    .card:hover { transform: translateY(-4px); }
-
-    .card-icon {
-      font-size: 28px;
-      color: var(--accent);
-      margin-bottom: 10px;
-    }
-
-    .card h3 {
-      font-size: 1.1rem;
-      color: var(--accent);
-      margin-bottom: 8px;
-    }
-
-    .card p {
-      font-size: 0.9rem;
-      opacity: 0.85;
-    }
-
-    /* ===== Workspace (Form + Playground) ===== */
-    .workspace {
-      display: none;
-      animation: fadeIn .3s ease;
-    }
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(10px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-
-    .workspace.active { display: block; }
-
-    .form-container {
-      display: flex;
-      gap: 30px;
-      flex-wrap: wrap;
-    }
-
-    .form-section, .playground-section {
-      background: var(--card);
-      padding: 24px;
-      border-radius: 14px;
-      flex: 1;
-      min-width: 300px;
-    }
-
-    .form-section h3 {
-      color: var(--accent);
-      margin-bottom: 12px;
-    }
-
-    .form-section input, .form-section textarea, .form-section select {
-      width: 100%;
-      margin-bottom: 14px;
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid rgba(0,0,0,0.1);
-      background: var(--muted);
-      color: var(--text);
-      font-size: 15px;
-    }
-
-    .form-section button {
-      background: var(--accent);
-      color: #fff;
-      padding: 12px 18px;
-      border-radius: 10px;
-      border: none;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background .2s;
-    }
-    .form-section button:hover { background: var(--accent-dark); }
-
-    .playground-section h3 { color: var(--accent); margin-bottom: 10px; }
-    .output { 
-      font-family: 'Patrick Hand', cursive;
-      white-space: pre-wrap;
-      font-size: 1.05rem;
-      line-height: 1.6;
-      color: var(--text);
-      padding-top: 10px;
-    }
-
-    .back-btn {
-      background: none;
-      color: var(--accent);
-      border: none;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: underline;
-      margin-bottom: 15px;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 50px;
-      padding: 20px;
-      font-size: 0.9rem;
-      opacity: 0.7;
-    }
-
-    @media(max-width: 768px){
-      .sidebar {display:none;}
-      .main {margin:0;padding:30px;}
+    @media(max-width:768px){
+      .sidebar{display:none;}
+      .main{margin:0;padding:30px;}
+      .form-container{flex-direction:column;}
+      .copy-btn{float:none;display:block;margin:10px auto;}
     }
   </style>
 </head>
@@ -284,15 +112,15 @@
     <div>
       <div class="logo">💞 HeartNote AI</div>
       <nav class="menu">
-        <a href="#" class="active">🏠 Dashboard</a>
-        <a href="#" >🌿 Reflection</a>
-        <a href="#">📖 Journal</a>
-        <a href="#">🌈 Affirmation</a>
-        <a href="#">📝 Notes</a>
-        <a href="#">💌 Letters</a>
-        <a href="#">🪶 Poems</a>
-        <a href="#">✨ Story</a>
-        <a href="#">💭 Quotes</a>
+        <a href="#" class="active" onclick="openTool('Dashboard')">🏠 Dashboard</a>
+        <a href="#" onclick="openTool('Reflection')">🌿 Reflection</a>
+        <a href="#" onclick="openTool('Journal')">📖 Journal</a>
+        <a href="#" onclick="openTool('Affirmation')">🌈 Affirmation</a>
+        <a href="#" onclick="openTool('Notes')">📝 Notes</a>
+        <a href="#" onclick="openTool('Letters')">💌 Letters</a>
+        <a href="#" onclick="openTool('Poems')">🪶 Poems</a>
+        <a href="#" onclick="openTool('Story')">✨ Story</a>
+        <a href="#" onclick="openTool('Quotes')">💭 Quotes</a>
       </nav>
     </div>
     <button class="upgrade-btn">Upgrade to Pro 💗</button>
@@ -302,30 +130,26 @@
   <main class="main">
     <div class="topbar">
       <h1 id="welcomeText">Welcome!</h1>
-      <div class="toggle-buttons">
-        <button class="active">Text</button>
-      </div>
     </div>
 
     <div class="search-bar">
       <input type="text" placeholder="Search HeartNote tools or emotions..." />
     </div>
 
-    <!-- Library -->
+    <!-- Dashboard Cards -->
     <div id="libraryView">
-      <div class="section-title">Popular Tools</div>
       <div class="cards">
-        <div class="card" onclick="openTool('Love Letter Maker')">
+        <div class="card" onclick="openTool('Letters')">
           <div class="card-icon">💌</div>
           <h3>Love Letter Maker</h3>
           <p>Express heartfelt feelings through poetic letters.</p>
         </div>
-        <div class="card" onclick="openTool('Affirmation Creator')">
+        <div class="card" onclick="openTool('Affirmation')">
           <div class="card-icon">🌈</div>
           <h3>Affirmation Creator</h3>
           <p>Create uplifting affirmations to brighten your day.</p>
         </div>
-        <div class="card" onclick="openTool('Mood Journal')">
+        <div class="card" onclick="openTool('Journal')">
           <div class="card-icon">📔</div>
           <h3>Mood Journal</h3>
           <p>Reflect and write about your emotions daily.</p>
@@ -333,27 +157,38 @@
       </div>
     </div>
 
-    <!-- Tool Workspace -->
-    <div id="workspaceView" class="workspace">
-      <button class="back-btn" onclick="goBack()">← Back to Tools</button>
-      <div class="form-container">
-        <div class="form-section">
-          <h3 id="toolTitle">Tool Name</h3>
-          <input type="text" id="nameInput" placeholder="Recipient or topic...">
-          <textarea id="descInput" rows="4" placeholder="Write what you feel..."></textarea>
-          <select id="depthInput">
-            <option>Light</option>
-            <option>Medium</option>
-            <option>Deep</option>
-          </select>
-          <button onclick="generateContent()">Generate Content</button>
-        </div>
-        <div class="playground-section">
-          <h3>🖋️ Playground</h3>
-          <div id="output" class="output">Your writing will appear here...</div>
-        </div>
-      </div>
+   <!-- Tool Workspace -->
+<div id="workspaceView" class="workspace">
+  <button class="back-btn" onclick="goBack()">← Back to Tools</button>
+  <div class="form-container">
+    <div class="form-section">
+      <h3 id="toolTitle">Tool Name</h3>
+
+      <label for="nameInput">💗 Recipient or Topic</label>
+      <input type="text" id="nameInput" placeholder="Enter recipient or topic...">
+
+      <label for="descInput">📝 What do you feel?</label>
+      <textarea id="descInput" rows="4" placeholder="Write your thoughts..."></textarea>
+
+      <label for="depthInput">🌊 Depth of Emotion</label>
+      <select id="depthInput">
+        <option>Light</option>
+        <option>Medium</option>
+        <option>Deep</option>
+      </select>
+
+      <button onclick="generateContent()">Generate Content</button>
     </div>
+
+    <div class="playground-section">
+      <h3>🖋️ Playground 
+        <button class="copy-btn" onclick="copyText()">Copy</button>
+      </h3>
+      <div id="output" class="output">Your writing will appear here...</div>
+    </div>
+  </div>
+</div>
+
 
     <footer>© 2025 HeartNote AI — Designed with 💗 by Solulure Labs</footer>
   </main>
@@ -364,26 +199,44 @@
       document.getElementById('welcomeText').innerText = `Welcome, ${username} 💞`;
     }
 
-    function openTool(name){
+    function openTool(name) {
+      if (name === 'Dashboard') {
+        document.getElementById('workspaceView').classList.remove('active');
+        document.getElementById('libraryView').style.display = 'block';
+        document.querySelectorAll('.menu a').forEach(a => a.classList.remove('active'));
+        event.target.classList.add('active');
+        return;
+      }
+
       document.getElementById('libraryView').style.display = 'none';
       document.getElementById('workspaceView').classList.add('active');
       document.getElementById('toolTitle').innerText = name;
       document.getElementById('output').innerText = "Your writing will appear here...";
+      document.querySelectorAll('.menu a').forEach(a => a.classList.remove('active'));
+      event.target.classList.add('active');
     }
 
-    function goBack(){
+    function goBack() {
       document.getElementById('workspaceView').classList.remove('active');
       document.getElementById('libraryView').style.display = 'block';
+      document.querySelectorAll('.menu a').forEach(a => a.classList.remove('active'));
+      document.querySelector('.menu a').classList.add('active'); // dashboard active
     }
 
-    function generateContent(){
+    function generateContent() {
       const name = document.getElementById('nameInput').value || 'someone special';
       const desc = document.getElementById('descInput').value || 'your emotions';
       const depth = document.getElementById('depthInput').value;
       const title = document.getElementById('toolTitle').innerText;
 
-      const message = `Dear ${name},\n\nThis is a ${depth.toLowerCase()} piece written with ${title}. It beautifully captures ${desc}.\n\nWith warmth,\n💗 HeartNote AI`;
+      const message = `Dear ${name},\n\nThis is a ${depth.toLowerCase()} piece written using the ${title} tool. It beautifully captures ${desc}.\n\nWith warmth,\n💗 HeartNote AI`;
       document.getElementById('output').innerText = message;
+    }
+
+    function copyText() {
+      const text = document.getElementById('output').innerText;
+      navigator.clipboard.writeText(text);
+      alert("Copied to clipboard 💗");
     }
   </script>
 </body>
