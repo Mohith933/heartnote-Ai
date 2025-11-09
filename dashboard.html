@@ -96,13 +96,43 @@
     .output{font-family:'Patrick Hand',cursive;white-space:pre-wrap;font-size:1.05rem;line-height:1.6;color:var(--text);padding-top:10px;}
     .back-btn{background:none;color:var(--accent);border:none;font-weight:600;cursor:pointer;text-decoration:underline;margin-bottom:15px;}
     footer{text-align:center;margin-top:50px;padding:20px;font-size:.9rem;opacity:.7;}
+.playground-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* makes it wrap properly on mobile */
+  gap: 8px;
+  margin-bottom: 10px;
+}
 
+.copy-btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+
+.copy-btn:hover {
+  background: var(--accent-dark);
+}
     @media(max-width:768px){
       .sidebar{display:none;}
       .main{margin:0;padding:30px;}
       .form-container{flex-direction:column;}
-      .copy-btn{float:none;display:block;margin:10px auto;}
-    }
+.playground-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .copy-btn {
+    width: 100%;
+    text-align: center;
+  }
   </style>
 </head>
 <body>
@@ -182,9 +212,10 @@
     </div>
 
     <div class="playground-section">
-      <h3>🖋️ Playground 
-        <button class="copy-btn" onclick="copyText()">Copy</button>
-      </h3>
+      <div class="playground-header">
+  <h3>🖋️ Playground</h3>
+  <button class="copy-btn" onclick="copyText()">📋 Copy</button>
+</div>
       <div id="output" class="output">Your writing will appear here...</div>
     </div>
   </div>
