@@ -460,13 +460,6 @@ function copyText() {
   return document.getElementById("toolTitle").innerText.trim().toLowerCase();
 }
 
-// Function to get the current mode (Type) from the HTML
-function getCurrentMode() {
-    const toolElement = document.getElementById('toolTitle');
-    // Reads the data-type attribute, defaulting to 'default'
-    return toolElement ? toolElement.getAttribute('data-type') : 'default';
-}
-
 // Utility to select a random element from an array
 const getRandom = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
