@@ -349,89 +349,104 @@
     }
 
  function generateContent() {
-  const name = document.getElementById('nameInput').value || 'someone special';
-  const desc = document.getElementById('descInput').value || 'your emotions';
-  const depth = document.getElementById('depthInput').value.toLowerCase();
+  // 1. IMPROVEMENT: Use .trim() for clean input and use const for variables
+  const name = document.getElementById('nameInput').value.trim() || 'someone special';
+  const desc = document.getElementById('descInput').value.trim() || 'your emotions';
+  // Use .trim() to handle accidental spaces like " medium "
+  const depth = document.getElementById('depthInput').value.toLowerCase().trim();
+  // Store the title once
   const title = document.getElementById('toolTitle').innerText.toLowerCase();
   const output = document.getElementById('output');
 
-  // Basic tone function depending on emotional depth
+  // Utility to select a random element from an array (Crucial for variability)
+  const getRandom = (arr) => arr[Math.floor(Math.random() * arr.length)];
+  const date = new Date().toLocaleDateString();
+  const signature = '\n💗 HeartNote AI';
+
+  // Basic tone function depends on emotional depth
+  // 2. IMPROVEMENT: Use a switch statement or ternary for clearer flow and default handling
   function tone(light, medium, deep) {
-    if (depth === 'light') return light;
-    if (depth === 'medium') return medium;
-    return deep;
+    // 3. IMPROVEMENT: Pass arrays and select a random element for non-repetition
+    if (depth === 'light') return getRandom(light);
+    if (depth === 'medium') return getRandom(medium);
+    // If input is 'deep' OR any other invalid value, default to the deep template
+    return getRandom(deep);
   }
 
   let message = '';
 
+  // 4. IMPROVEMENT: Templates are now arrays for variability.
+  
   // 🌤️ Reflection
   if (title.includes('reflection')) {
     message = tone(
-      `I'm pausing to appreciate **${desc}** and what it teaches me about ${name}.`,
-      `Reflecting on ${desc}, I realize growth comes from embracing every side of ${name}.`,
-      `In the stillness of ${desc}, I understand ${name} is part of my deeper purpose.`
+      [`I'm pausing to appreciate **${desc}** and what it teaches me about ${name}.`, `A gentle reflection on ${desc} and the unique perspective ${name} provides.`],
+      [`Reflecting on ${desc}, I realize growth comes from embracing every side of ${name}.`, `The journey through ${desc} is deepening my bond and understanding of ${name}.`],
+      [`In the stillness of ${desc}, I understand ${name} is part of my deeper purpose.`, `The profound meaning of ${desc} illuminates my inner connection to ${name}.`]
     );
   }
   // 📔 Journal
   else if (title.includes('journal')) {
-    const date = new Date().toLocaleDateString();
     message = tone(
-      `Date: ${date}\nToday I thought about ${name}. ${desc} made me smile gently.`,
-      `Date: ${date}\nI wrote this journal to process ${desc} and how ${name} shapes me.`,
-      `Date: ${date}\n${desc} revealed how deeply I care for ${name}. Growth feels real now.`
+      [`Today I thought about ${name}. ${desc} made me smile gently.`, `${desc} was noted today, a soft reminder of my thoughts on ${name}.`],
+      [`I wrote this journal entry to process ${desc} and how ${name} shapes me.`, `Processing the feelings of ${desc} helps clarify my relationship with ${name}.`],
+      [`${desc} revealed how deeply I care for ${name}. Growth feels real now.`, `The intensity of ${desc} is a powerful mirror reflecting my inner truth about ${name}.`]
     );
+    message = `Date: ${date}\n${message}`; // Add date only after generation
   }
   // 💬 Note
   else if (title.includes('notes')) {
     message = tone(
-      `Just a note — ${desc} reminds me to stay calm and connected with ${name}.`,
-      `${desc} is teaching me to see ${name} in softer light.`,
-      `Every moment of ${desc} strengthens how I understand ${name} inside me.`
+      [`Just a note — ${desc} reminds me to stay calm and connected with ${name}.`, `Quick thought: ${desc} and its subtle connection to ${name}.`],
+      [`${desc} is teaching me to see ${name} in softer light.`, `This feeling of ${desc} is an important lesson about my relationship with ${name}.`],
+      [`Every moment of ${desc} strengthens how I understand ${name} inside me.`, `The gravity of ${desc} deepens my appreciation for ${name}.`]
     );
   }
   // 🌿 Affirmation
   else if (title.includes('affirmation')) {
     message = tone(
-      `I trust that I’m growing with ${name}, even when ${desc} feels uncertain.`,
-      `I am capable of turning ${desc} into clarity. ${name} brings peace.`,
-      `Through ${desc}, I rise with power. ${name} is part of my strength.`
+      [`I trust that I’m growing with ${name}, even when ${desc} feels uncertain.`, `I affirm peace, accepting ${desc} as part of my journey with ${name}.`],
+      [`I am capable of turning ${desc} into clarity. ${name} brings peace.`, `I choose to be resilient through ${desc}. I honor the strength ${name} represents.`],
+      [`Through ${desc}, I rise with power. ${name} is part of my strength.`, `I am whole and complete. ${desc} is merely a step in my absolute dedication to ${name}.`]
     );
   }
   // ✉️ Letter
   else if (title.includes('letters')) {
     message = tone(
-      `Dear ${name},\n\nYour presence means the world to me. ${desc} feels light and honest.\n\nWarm regards,\n💗 HeartNote AI`,
-      `Dear ${name},\n\nI’ve been thinking about ${desc} and how much it matters to us.\n\nWith care,\n💗 HeartNote AI`,
-      `My dearest ${name},\n\n${desc} has shown me love in its rawest form. You’ve changed my world.\n\nAlways,\n💗 HeartNote AI`
+      [`Dear ${name},\n\nYour presence means the world to me. ${desc} feels light and honest.\n\nWarm regards,`, `Hi ${name},\n\nThinking of you. ${desc} made me smile.\n\nWarm regards,`],
+      [`Dear ${name},\n\nI’ve been thinking about ${desc} and how much it matters to us.\n\nWith care,`, `Hello ${name},\n\nThis feeling about ${desc} is helping me understand our bond better.\n\nWith care,`],
+      [`My dearest ${name},\n\n${desc} has shown me love in its rawest form. You’ve changed my world.\n\nAlways,`, `To ${name},\n\n${desc} is a truth that connects us on the deepest level. I am forever grateful.\n\nAlways,`]
     );
+    message += signature; // Add signature consistently
   }
   // 📝 Poem
   else if (title.includes('poems')) {
     message = tone(
-      `When ${desc} drifts in the silent sky,\nI think of ${name}, and wonder why.`,
-      `Between the stars and beating flame,\n${desc} whispers softly, calling ${name}.`,
-      `${desc} paints the night in hue,\nEvery word I write is just for you, ${name}.`
+      [`When ${desc} drifts in the silent sky,\nI think of ${name}, and wonder why.`, `A tiny echo, softly low,\nFor ${name} and the simple ${desc} glow.`],
+      [`Between the stars and beating flame,\n${desc} whispers softly, calling ${name}.`, `The path of ${desc}, a gentle hill,\nWhere memories of ${name} linger still.`],
+      [`${desc} paints the night in hue,\nEvery word I write is just for you, ${name}.`, `In ${desc}'s profound and solemn light,\nI find my anchor, my ${name}, held tight.`]
     );
   }
   // 📚 Story
   else if (title.includes('story')) {
     message = tone(
-      `Once, ${name} discovered that ${desc} could change everything.`,
-      `In the heart of ${desc}, ${name} found courage and quiet strength.`,
-      `Through ${desc}, ${name} learned the power of love, loss, and becoming whole again.`
+      [`Once, ${name} discovered that ${desc} could change everything.`, `The adventure began when ${name} finally accepted the feeling of ${desc}.`],
+      [`In the heart of ${desc}, ${name} found courage and quiet strength.`, `A chapter unfolded where ${name} learned the true meaning of ${desc}.`],
+      [`Through ${desc}, ${name} learned the power of love, loss, and becoming whole again.`, `The epic conclusion saw ${name} master the profound truth held within ${desc}.`]
     );
   }
   // 💖 Quote
   else if (title.includes('quotes')) {
     message = tone(
-      `"${desc} reminds me that connection with ${name} is the simplest form of peace."`,
-      `"Through ${desc}, I find meaning with ${name} beyond words."`,
-      `"Even in ${desc}, the truth of ${name} shines without fear."`
+      [`"${desc} reminds me that connection with ${name} is the simplest form of peace."`, `"Happiness is a gentle ${desc} shared with ${name}."`],
+      [`"Through ${desc}, I find meaning with ${name} beyond words."`, `"Growth comes when we see ${desc} not as a challenge, but as a conversation with ${name}."`],
+      [`"Even in ${desc}, the truth of ${name} shines without fear."`, `"The deepest wisdom is born from the experience of ${desc} and the knowledge of ${name}."`]
     );
   }
   // Default fallback
   else {
-    message = `Dear ${name},\n\nThis is a ${depth} piece capturing ${desc}.\n\nWith warmth,\n💗 HeartNote AI`;
+    // 5. IMPROVEMENT: Better default message for clarity
+    message = `Dear ${name},\n\nThis is a default piece capturing **${desc}**. (Depth: ${depth || 'Unknown'})\n\nWith warmth,${signature}`;
   }
 
   output.innerText = message;
