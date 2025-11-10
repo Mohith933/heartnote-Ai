@@ -347,167 +347,94 @@
       document.querySelector('.menu a').classList.add('active'); // dashboard active
     }
 
-  function generateContentFinal() {
-  // 1. Robust Input Handling: Trim whitespace and set defaults
-  const name = document.getElementById('nameInput').value.trim() || 'someone special';
-  const desc = document.getElementById('descInput').value.trim() || 'your emotions';
-  const depth = document.getElementById('depthInput').value.toLowerCase().trim();
-  
-  // 2. Robust Type Identification: Get clean type via data-attribute (assumes data-type exists on #toolTitle)
-  const toolElement = document.getElementById('toolTitle');
-  const type = toolElement ? toolElement.getAttribute('data-type') : 'default';
-  
+ function generateContent() {
+  const name = document.getElementById('nameInput').value || 'someone special';
+  const desc = document.getElementById('descInput').value || 'your emotions';
+  const depth = document.getElementById('depthInput').value.toLowerCase();
+  const title = document.getElementById('toolTitle').innerText.toLowerCase();
   const output = document.getElementById('output');
 
-  // Utility to select a random element from an array
-  const getRandom = (arr) => arr[Math.floor(Math.random() * arr.length)];
-
-  // 3. Centralized Templates: All 8 modes are now defined with arrays for content variability.
-  const templates = {
-    reflection: {
-      light: [
-        `I'm pausing to appreciate **${desc}** and what it teaches me about ${name}.`,
-        `Just feeling a moment of peace. ${desc} helps me remember the kindness of ${name}.`
-      ],
-      medium: [
-        `Reflecting on ${desc}, I realize growth comes from embracing every side of ${name}.`,
-        `${desc} is leading me to a deeper understanding of my connection with ${name}.`
-      ],
-      deep: [
-        `In the stillness of ${desc}, I understand ${name} is part of my deeper purpose.`,
-        `The complexity of ${desc} reveals the profound necessity of ${name} in my life.`
-      ]
-    },
-    journal: {
-      light: [
-        `Today I thought about ${name}. ${desc} made me smile gently.`,
-        `${desc} was the highlight, a quiet nod to my bond with ${name}.`
-      ],
-      medium: [
-        `I wrote this journal entry to process ${desc} and how ${name} shapes me.`,
-        `Working through the feelings around ${desc} brings me closer to accepting ${name}.`
-      ],
-      deep: [
-        `${desc} revealed how deeply I care for ${name}. Growth feels real now.`,
-        `The intensity of ${desc} is a powerful mirror reflecting my inner truth about ${name}.`
-      ]
-    },
-    note: {
-      light: [
-        `Just a quick note—${desc} reminds me to stay calm and connected with ${name}.`,
-        `A gentle thought on ${desc}. Thank you, ${name}, for this perspective.`
-      ],
-      medium: [
-        `${desc} is teaching me to see ${name} in a softer, more understanding light.`,
-        `Processing ${desc}. It's a key part of my journey with ${name}.`
-      ],
-      deep: [
-        `Every moment of ${desc} strengthens how I understand ${name} inside me.`,
-        `This profound insight from ${desc} completely changed how I view ${name}.`
-      ]
-    },
-    affirmation: {
-      light: [
-        `I trust that I’m growing with ${name}, even when ${desc} feels uncertain.`,
-        `I embrace ${desc}. My connection with ${name} is simple and true.`
-      ],
-      medium: [
-        `I am capable of turning ${desc} into clarity. ${name} brings peace to the process.`,
-        `I choose to be resilient through ${desc}. I honor the strength ${name} represents.`
-      ],
-      deep: [
-        `Through ${desc}, I rise with power. ${name} is part of my ultimate strength and destiny.`,
-        `I am whole and complete. ${desc} is merely a step in my absolute dedication to ${name}.`
-      ]
-    },
-    letter: {
-      light: [
-        `Dear ${name},\n\nYour presence means the world to me. ${desc} feels light and honest.`,
-        `Hi ${name},\n\nThinking of you. ${desc} made me smile.\n\nWarm regards,`
-      ],
-      medium: [
-        `Dear ${name},\n\nI’ve been thinking about ${desc} and how much it matters to us.`,
-        `Hello ${name},\n\nThis feeling about ${desc} is helping me understand our bond better.`,
-      ],
-      deep: [
-        `My dearest ${name},\n\n${desc} has shown me love in its rawest form. You’ve changed my world.`,
-        `To ${name},\n\n${desc} is a truth that connects us on the deepest level. I am forever grateful.`
-      ]
-    },
-    poem: {
-      light: [
-        `When ${desc} drifts in the silent sky,\nI think of ${name}, and wonder why.`,
-        `A tiny echo, softly low,\nFor ${name} and the simple ${desc} glow.`
-      ],
-      medium: [
-        `Between the stars and beating flame,\n${desc} whispers softly, calling ${name}.`,
-        `The path of ${desc}, a gentle hill,\nWhere memories of ${name} linger still.`
-      ],
-      deep: [
-        `${desc} paints the night in hue,\nEvery word I write is just for you, ${name}.`,
-        `In ${desc}'s profound and solemn light,\nI find my anchor, my ${name}, held tight.`
-      ]
-    },
-    story: {
-      light: [
-        `Once, ${name} discovered that ${desc} could change everything, gently.`,
-        `The adventure began when ${name} finally accepted the feeling of ${desc}.`
-      ],
-      medium: [
-        `In the heart of ${desc}, ${name} found courage and quiet strength for the journey ahead.`,
-        `A chapter unfolded where ${name} learned the true meaning of ${desc}.`
-      ],
-      deep: [
-        `Through ${desc}, ${name} learned the power of love, loss, and becoming whole again.`,
-        `The epic conclusion saw ${name} master the profound truth held within ${desc}.`
-      ]
-    },
-    quote: {
-      light: [
-        `"${desc} reminds me that connection with ${name} is the simplest form of peace."`,
-        `"Happiness is a gentle ${desc} shared with ${name}."`
-      ],
-      medium: [
-        `"Through ${desc}, I find meaning with ${name} beyond words, a quiet truth."`,
-        `"Growth comes when we see ${desc} not as a challenge, but as a conversation with ${name}."`
-      ],
-      deep: [
-        `"Even in ${desc}, the truth of ${name} shines without fear, an absolute light."`,
-        `"The deepest wisdom is born from the experience of ${desc} and the knowledge of ${name}."`
-      ]
-    }
-  };
+  // Basic tone function depending on emotional depth
+  function tone(light, medium, deep) {
+    if (depth === 'light') return light;
+    if (depth === 'medium') return medium;
+    return deep;
+  }
 
   let message = '';
-  const date = new Date().toLocaleDateString();
-  const signature = '\n💗 HeartNote AI';
 
-  // 4. Generation Logic: Check for valid type and depth
-  if (templates[type] && templates[type][depth]) {
-    // Select the template based on type and depth, then pick a random sentence
-    message = getRandom(templates[type][depth]);
-  } else {
-    // Fallback if type or depth is invalid (e.g., 'super-deep' or 'doodle')
-    message = `Dear ${name},\n\nThis is a piece capturing **${desc}**. (Mode: ${type || 'Unknown'}, Depth: ${depth || 'Unknown'})`;
-    if (type === 'letter') {
-        // Ensure the letter-like fallbacks still receive a signature
-        message += signature;
-    }
+  // 🌤️ Reflection
+  if (title.includes('reflection')) {
+    message = tone(
+      `I'm pausing to appreciate **${desc}** and what it teaches me about ${name}.`,
+      `Reflecting on ${desc}, I realize growth comes from embracing every side of ${name}.`,
+      `In the stillness of ${desc}, I understand ${name} is part of my deeper purpose.`
+    );
   }
-
-  // 5. Final Formatting Pass: Apply unique formatting needed for specific modes
-  if (type === 'journal' && message) {
-    message = `Date: ${date}\n${message}`;
+  // 📔 Journal
+  else if (title.includes('journal')) {
+    const date = new Date().toLocaleDateString();
+    message = tone(
+      `Date: ${date}\nToday I thought about ${name}. ${desc} made me smile gently.`,
+      `Date: ${date}\nI wrote this journal to process ${desc} and how ${name} shapes me.`,
+      `Date: ${date}\n${desc} revealed how deeply I care for ${name}. Growth feels real now.`
+    );
   }
-  
-  if (type === 'letter' && !message.includes('HeartNote AI')) {
-    // Ensure ALL letters receive the signature (even randomized ones)
-    message += signature;
+  // 💬 Note
+  else if (title.includes('note')) {
+    message = tone(
+      `Just a note — ${desc} reminds me to stay calm and connected with ${name}.`,
+      `${desc} is teaching me to see ${name} in softer light.`,
+      `Every moment of ${desc} strengthens how I understand ${name} inside me.`
+    );
+  }
+  // 🌿 Affirmation
+  else if (title.includes('affirmation')) {
+    message = tone(
+      `I trust that I’m growing with ${name}, even when ${desc} feels uncertain.`,
+      `I am capable of turning ${desc} into clarity. ${name} brings peace.`,
+      `Through ${desc}, I rise with power. ${name} is part of my strength.`
+    );
+  }
+  // ✉️ Letter
+  else if (title.includes('letter')) {
+    message = tone(
+      `Dear ${name},\n\nYour presence means the world to me. ${desc} feels light and honest.\n\nWarm regards,\n💗 HeartNote AI`,
+      `Dear ${name},\n\nI’ve been thinking about ${desc} and how much it matters to us.\n\nWith care,\n💗 HeartNote AI`,
+      `My dearest ${name},\n\n${desc} has shown me love in its rawest form. You’ve changed my world.\n\nAlways,\n💗 HeartNote AI`
+    );
+  }
+  // 📝 Poem
+  else if (title.includes('poem')) {
+    message = tone(
+      `When ${desc} drifts in the silent sky,\nI think of ${name}, and wonder why.`,
+      `Between the stars and beating flame,\n${desc} whispers softly, calling ${name}.`,
+      `${desc} paints the night in hue,\nEvery word I write is just for you, ${name}.`
+    );
+  }
+  // 📚 Story
+  else if (title.includes('story')) {
+    message = tone(
+      `Once, ${name} discovered that ${desc} could change everything.`,
+      `In the heart of ${desc}, ${name} found courage and quiet strength.`,
+      `Through ${desc}, ${name} learned the power of love, loss, and becoming whole again.`
+    );
+  }
+  // 💖 Quote
+  else if (title.includes('quote')) {
+    message = tone(
+      `"${desc} reminds me that connection with ${name} is the simplest form of peace."`,
+      `"Through ${desc}, I find meaning with ${name} beyond words."`,
+      `"Even in ${desc}, the truth of ${name} shines without fear."`
+    );
+  }
+  // Default fallback
+  else {
+    message = `Dear ${name},\n\nThis is a ${depth} piece capturing ${desc}.\n\nWith warmth,\n💗 HeartNote AI`;
   }
 
   output.innerText = message;
 }
-
     // 📋 Copy Function
 function copyText() {
   const text = document.getElementById('output').innerText;
