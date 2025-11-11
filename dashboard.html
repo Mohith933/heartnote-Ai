@@ -543,16 +543,6 @@ function copyText() {
   return document.getElementById("toolTitle").innerText.trim().toLowerCase();
 }
 
-// 💗 Topic suggestions based on mode
-// Function to determine the current mode (must be defined in the environment)
-// Assuming currentMode() retrieves the selected mode (e.g., from a dropdown/data-attribute)
-// Example placeholder for currentMode (you should use your actual implementation):
-function currentMode() {
-    // If you are using the title check from the previous code, the logic would be complex here.
-    // Assuming a <select id="mode-selector"> or similar element exists.
-    return document.getElementById("mode-selector")?.value.toLowerCase().trim() || 'default';
-}
-
 
 function suggestName() {
   // Assuming currentMode() is defined and returns the mode string (e.g., 'reflection', 'letters')
