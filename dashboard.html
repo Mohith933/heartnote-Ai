@@ -276,7 +276,13 @@
       <a href="#" onclick="openTool('Quotes')">💭 Quotes</a>
     </div>
   </div>
-
+  <div class="menu-group">
+    <button class="dropdown-btn">Accounts</button>
+    <div class="dropdown-content">
+    <a href="#" onclick="openTool('Profile')">🪪 Profile</a>
+    <a href="#" onclick="openTool('Settings')">⚙️ Settings</a>
+  </div>
+  </div>
 </nav>
 
     </div>
@@ -321,18 +327,6 @@
           <h3>Mood Journal</h3>
           <p>Reflect and write about your emotions daily.</p>
         </div>
-          <div class="card" onclick="openTool('Profile')">
-      <div class="card-icon">🪪</div>
-      <h3>Profile</h3>
-      <p>View and edit your personal details.</p>
-    </div>
-
-    <div class="card" onclick="openTool('Settings')">
-      <div class="card-icon">⚙️</div>
-      <h3>Settings</h3>
-      <p>Customize your preferences and themes.</p>
-    </div>
-      </div>
     </div>
 
     <!-- Tool Workspace -->
@@ -846,7 +840,7 @@ function suggestFeeling() {
       { icon: "📔", title: "Mood Journal", desc: "Write your thoughts and daily reflections.", tool: "Journal" },
       { icon: "📝", title: "Notes", desc: "Keep small thoughts or study ideas safely.", tool: "Notes" },
       { icon: "🌈", title: "Affirmation Creator", desc: "Positive words to strengthen your day.", tool: "Affirmation" },
-      { icon: "🌿", title: "Reflection", desc: "Think deeply about your goals and feelings.", tool: "Reflection" },
+      { icon: "🌿", title: "Reflection", desc: "Think deeply about your goals and feelings.", tool: "Reflection" }
     ];
 
     under18Cards.forEach(card => {
@@ -870,7 +864,7 @@ function suggestFeeling() {
       { icon: "📔", title: "Mood Journal", desc: "Reflect on your feelings every day.", tool: "Journal" },
       { icon: "📝", title: "Notes", desc: "Keep your quick thoughts safe.", tool: "Notes" },
       { icon: "🌈", title: "Affirmations", desc: "Positive messages for yourself or others.", tool: "Affirmation" },
-      { icon: "🌿", title: "Reflection", desc: "Think and write about your journey.", tool: "Reflection" },
+      { icon: "🌿", title: "Reflection", desc: "Think and write about your journey.", tool: "Reflection" }
     ];
 
     // 📱 Mobile shows all, 💻 Desktop shows limited (e.g. top 4)
@@ -888,6 +882,37 @@ function suggestFeeling() {
     });
   }
 });
+    // Example user data after signup/login
+let currentUser = {
+  username: "HeartUser",
+  email: "heart@example.com",
+  joinDate: new Date().toLocaleDateString()
+};
+
+// Save to localStorage
+localStorage.setItem("heartUser", JSON.stringify(currentUser));
+
+// Load profile when opened
+function openTool(toolName) {
+  document.querySelectorAll('.tool-section').forEach(sec => sec.style.display = 'none');
+  document.getElementById(toolName).style.display = 'block';
+
+  if (toolName === "Profile") {
+    const user = JSON.parse(localStorage.getItem("heartUser"));
+    if (user) {
+      document.getElementById("userName").innerText = user.username;
+      document.getElementById("userEmail").innerText = user.email;
+      document.getElementById("userJoinDate").innerText = user.joinDate;
+    }
+  }
+}
+
+// Logout function
+function logoutUser() {
+  localStorage.removeItem("heartUser");
+  alert("Logged out successfully!");
+  location.reload();
+}
 
   </script>
 </body>
