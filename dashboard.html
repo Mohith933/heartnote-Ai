@@ -773,7 +773,93 @@ function suggestFeeling() {
     dropdown.style.display = dropdown.style.display === 'flex' ? 'none' : 'flex';
   });
 });
+  window.addEventListener("DOMContentLoaded", function () {
+  const mode = localStorage.getItem("mode");
+  const heartMenu = document.querySelectorAll(".menu-group")[1]; // second group (Heart & Emotion)
 
+  if (mode === "under18") {
+    // Hide romantic/emotional tools
+    heartMenu.style.display = "none";
+  } else if (mode === "adult") {
+    // Show all tools
+    heartMenu.style.display = "block";
+  }
+});
+  window.addEventListener("DOMContentLoaded", function () {
+  const mode = localStorage.getItem("mode");
+  const cardsContainer = document.querySelector(".cards");
+  cardsContainer.innerHTML = ""; // clear all cards first
+
+  if (mode === "under18") {
+    // 🧒 For users under 18 → 4 simple modes
+    cardsContainer.innerHTML = `
+      <div class="card" onclick="openTool('Journal')">
+        <div class="card-icon">📔</div>
+        <h3>Mood Journal</h3>
+        <p>Write your thoughts and daily reflections.</p>
+      </div>
+      <div class="card" onclick="openTool('Notes')">
+        <div class="card-icon">📝</div>
+        <h3>Notes</h3>
+        <p>Keep small thoughts or study ideas safely.</p>
+      </div>
+      <div class="card" onclick="openTool('Affirmation')">
+        <div class="card-icon">🌈</div>
+        <h3>Affirmation Creator</h3>
+        <p>Positive words to strengthen your day.</p>
+      </div>
+      <div class="card" onclick="openTool('Reflection')">
+        <div class="card-icon">🌿</div>
+        <h3>Reflection</h3>
+        <p>Think deeply about your goals and feelings.</p>
+      </div>
+    `;
+  } else {
+    // 👩‍💼 For users above 18 → full 8 modes
+    cardsContainer.innerHTML = `
+      <div class="card" onclick="openTool('Letters')">
+        <div class="card-icon">💌</div>
+        <h3>Letters</h3>
+        <p>Express heartfelt emotions through writing.</p>
+      </div>
+      <div class="card" onclick="openTool('Poems')">
+        <div class="card-icon">🪶</div>
+        <h3>Poems</h3>
+        <p>Write beautiful verses from your feelings.</p>
+      </div>
+      <div class="card" onclick="openTool('Story')">
+        <div class="card-icon">✨</div>
+        <h3>Stories</h3>
+        <p>Turn your thoughts into meaningful stories.</p>
+      </div>
+      <div class="card" onclick="openTool('Quotes')">
+        <div class="card-icon">💭</div>
+        <h3>Quotes</h3>
+        <p>Create inspiring lines and sayings.</p>
+      </div>
+      <div class="card" onclick="openTool('Journal')">
+        <div class="card-icon">📔</div>
+        <h3>Mood Journal</h3>
+        <p>Reflect on your feelings every day.</p>
+      </div>
+      <div class="card" onclick="openTool('Notes')">
+        <div class="card-icon">📝</div>
+        <h3>Notes</h3>
+        <p>Keep your quick thoughts safe.</p>
+      </div>
+      <div class="card" onclick="openTool('Affirmation')">
+        <div class="card-icon">🌈</div>
+        <h3>Affirmations</h3>
+        <p>Positive messages for yourself or others.</p>
+      </div>
+      <div class="card" onclick="openTool('Reflection')">
+        <div class="card-icon">🌿</div>
+        <h3>Reflection</h3>
+        <p>Think and write about your journey.</p>
+      </div>
+    `;
+  }
+});
   </script>
 </body>
 </html>
