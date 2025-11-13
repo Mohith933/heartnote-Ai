@@ -708,30 +708,28 @@ function openTool(name) {
   }
 }
 
+// 🕒 Show recents on dashboard
 function saveRecent(toolName) {
   let recents = JSON.parse(localStorage.getItem("recents")) || [];
 
-const data = {
-  id: Date.now(), // unique timestamp
-  name: toolName,
-  icon: getToolIcon(toolName),
-  time: new Date().toLocaleString(),
-  nameInput: document.getElementById("nameInput").value,
-  descInput: document.getElementById("descInput").value,
-  depthInput: document.getElementById("depthInput").value,
-  output: document.getElementById("output").innerText
-};
+  const data = {
+    name: toolName,
+    icon: getToolIcon(toolName),
+    time: new Date().toLocaleString(),
+    nameInput: document.getElementById("nameInput").value,
+    descInput: document.getElementById("descInput").value,
+    depthInput: document.getElementById("depthInput").value,
+    output: document.getElementById("output").innerText
+  };
 
-
-  // ✅ Instead of removing duplicates, just push new entry
+  // ✅ Add new entry to top
   recents.unshift(data);
 
-  // ✅ Optional: If you want to limit to 5 total
+  // ✅ Limit to 5 most recent
   recents = recents.slice(0, 5);
 
   localStorage.setItem("recents", JSON.stringify(recents));
 }
-
 
 function getToolIcon(name) {
   const icons = {
@@ -747,18 +745,6 @@ function getToolIcon(name) {
   return icons[name] || "🪶";
 }
 
-
-
-// 🧹 Delete individual recent
-function deleteRecent(id) {
-  let recents = JSON.parse(localStorage.getItem("recents")) || [];
-  recents = recents.filter(r => r.id !== id);
-  localStorage.setItem("recents", JSON.stringify(recents));
-  showRecents();
-}
-
-
-// 🕒 Show recents on dashboard
 function showRecents() {
   const recents = JSON.parse(localStorage.getItem("recents")) || [];
   const container = document.getElementById("recentCards");
@@ -769,7 +755,7 @@ function showRecents() {
     return;
   }
 
-  recents.forEach(r => {
+  recents.forEach((r, index) => {
     container.innerHTML += `
       <div class="recent-card">
         <div class="recent-left" onclick="openTool('${r.name}')">
@@ -779,7 +765,7 @@ function showRecents() {
             <small>${r.time}</small>
           </div>
         </div>
-       <button class="delete-btn" onclick="deleteRecent(${r.id})">❌</button>
+        <button class="delete-btn" onclick="deleteRecent(${index})">❌</button>
       </div>
     `;
   });
@@ -787,26 +773,36 @@ function showRecents() {
 
 window.addEventListener("DOMContentLoaded", showRecents);
 
- function goBack() {
+// 🧹 Delete individual recent
+function deleteRecent(index) {
+  let recents = JSON.parse(localStorage.getItem("recents")) || [];
+  recents.splice(index, 1); // Remove by index
+  localStorage.setItem("recents", JSON.stringify(recents));
+  showRecents(); // Refresh display
+}
+
+// 🔙 Go back and save current state if content exists
+function goBack() {
   const currentTool = document.getElementById("toolTitle").innerText.trim();
-  
+
   // Capture current workspace data
   const nameInput = document.getElementById("nameInput").value.trim();
   const descInput = document.getElementById("descInput").value.trim();
   const output = document.getElementById("output").innerText.trim();
 
-  // 🛑 Only save if there's real content (avoid overwriting old recents with blank)
-  if (nameInput || descInput || output !== "Your writing will appear here...") {
+  // 🛑 Only save if meaningful content exists
+  if (nameInput || descInput || (output && output !== "Your writing will appear here...")) {
     saveRecent(currentTool);
   }
 
   // 🧭 Switch view
-  document.getElementById('workspaceView').classList.remove('active');
-  document.getElementById('libraryView').style.display = 'block';
-  
+  document.getElementById("workspaceView").classList.remove("active");
+  document.getElementById("libraryView").style.display = "block";
+
   // ♻️ Refresh recents list
   showRecents();
 }
+
 
 
 
