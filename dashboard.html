@@ -1427,6 +1427,21 @@ function copyText() {
             document.getElementById("descInput").value =
                 emotions[Math.floor(Math.random() * emotions.length)];
         }
+function currentMode() {
+    const tool = document.getElementById("toolTitle").innerText.toLowerCase();
+
+    switch (tool) {
+        case "reflection": return "reflection";
+        case "journal": return "journal";
+        case "notes": return "notes";
+        case "affirmation": return "affirmation";
+        case "letters": return "letters";
+        case "poems": return "poems";
+        case "story": return "story";
+        case "quotes": return "quotes";
+        default: return "default";
+    }
+}
         document.addEventListener("DOMContentLoaded", () => {
             const searchInput = document.getElementById("searchInput");
             const toolList = document.getElementById("toolList");
