@@ -693,6 +693,19 @@
 .maincardname{
     margin:10px;
 }
+        .back-btn {
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: #444;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.back-btn:hover {
+    color: #000;
+}
+
 
 
         @media(max-width:768px) {
@@ -803,6 +816,8 @@
       
       <!-- Profile View -->
 <div id="profileView" class="hidden pageView">
+    <button class="back-btn" onclick="goDashboard()">← Back</button>
+
     <h2>👤 Your Profile</h2>
     <div class="profile-box">
         <img class="profile-avatar" src="data:image/svg+xml;utf8,
@@ -819,6 +834,8 @@
 
 <!-- Settings View -->
 <div id="settingsView" class="hidden pageView">
+    <button class="back-btn" onclick="goDashboard()">← Back</button>
+
     <h2>⚙️ Settings</h2>
 
     <div class="settings-box">
@@ -830,6 +847,7 @@
 
 <!-- About Page -->
 <div id="aboutView" class="hidden pageView">
+    <button class="back-btn" onclick="goDashboard()">← Back</button>
     <h2>ℹ️ About HeartNote AI</h2>
 
     <p class="about-text">
@@ -1565,6 +1583,12 @@ function openAbout() {
      hideAllPages();
     document.getElementById("aboutView").classList.remove("hidden");
 }
+  function goDashboard() {
+    hideAllPages();
+    document.getElementById("libraryView").style.display = "block";  // Show main screen
+}
+
+
 
 // Auto-close dropdown when clicking outside
 document.addEventListener("click", function(e) {
