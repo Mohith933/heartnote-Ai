@@ -1278,16 +1278,27 @@ function goBack() {
 
             output.innerText = message;
         }
-        // 📋 Copy Function
         function copyText() {
-            const text = document.getElementById('output').innerText;
-            navigator.clipboard.writeText(text);
-            alert("Copied to clipboard 💗");
-        }
-        function currentMode() {
-            return document.getElementById("toolTitle").innerText.trim().toLowerCase();
-        }
+    const tool = document.getElementById("toolTitle").innerText;
+    const text = document.getElementById("output").innerText;
 
+    const sensitiveTools = ["Love Letter Maker", "Letters", "Poems", "Story", "Quotes"];
+
+    // If sensitive tool → show warning popup first
+    if (sensitiveTools.includes(tool)) {
+        const confirmCopy = confirm(
+            "⚠️ This is original emotional content.\n" +
+            "Please use it responsibly and avoid hurting others.\n\n" +
+            "Do you still want to copy it?"
+        );
+
+        if (!confirmCopy) return; // user cancelled
+    }
+
+    // Safe to copy
+    navigator.clipboard.writeText(text);
+    alert("Copied to clipboard 💗");
+}
 
         function suggestName() {
             // Assuming currentMode() is defined and returns the mode string (e.g., 'reflection', 'letters')
