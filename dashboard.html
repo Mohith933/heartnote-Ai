@@ -1155,7 +1155,7 @@ if (containsBannedWords(message)) {
     output.innerText = "⚠️ Safety Alert: Generated content blocked for security reasons.";
 
     // ⭐ Save safe placeholder to recents so UI works properly
-    saveRecents("⚠️ Blocked content (restricted words detected)");
+    saveRecent("⚠️ Blocked content (restricted words detected)");
 
     return;
 }
