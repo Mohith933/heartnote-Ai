@@ -1028,6 +1028,24 @@ function getToolIcon(name) {
   };
   return icons[name] || "🪶";
 }
+function saveBlockedRecent() {
+  let recents = JSON.parse(localStorage.getItem("recents")) || [];
+
+  const data = {
+    id: Date.now(),
+    name: "Blocked",
+    icon: "🚫",
+    time: new Date().toLocaleString(),
+    nameInput: document.getElementById("nameInput").value,
+    descInput: document.getElementById("descInput").value,
+    depthInput: document.getElementById("depthInput").value,
+    output: "⚠️ Blocked content (restricted words detected)"
+  };
+
+  recents.unshift(data);
+  recents = recents.slice(0, 5);
+  localStorage.setItem("recents", JSON.stringify(recents));
+}
 
 function showRecents() {
   const recents = JSON.parse(localStorage.getItem("recents")) || [];
@@ -1136,30 +1154,27 @@ function typeWrite(text, elementId, speed = 30) {
             const title = document.getElementById('toolTitle').innerText.toLowerCase();
             const output = document.getElementById('output');
 const BANNED_PATTERNS = [
-    /sex/i,
-    /porn/i,
-    /nude/i,
-    /kill/i,        // kills, killing, killed
-    /murder/i,      // murdered, murdering
-    /suicid/i,      // suicide, suicidal
-    /abus/i,        // abuse, abused, abusing
-    /hat/i,         // hate, hated, hating
-    /violen/i,      // violence, violent
-    /threat/i       // threaten, threatening
+    /\bsex\b/i,
+    /\bporn/i,
+    /\bnude/i,
+    /\bkill/i,        
+    /\bmurder/i,      
+    /\bsuicid/i,      
+    /\babus/i,        
+    /\bhat(e|ing|ed)?\b/i, 
+    /\bviolen/i,      
+    /\bthreat/i       
 ];
 
 function containsBannedWords(text) {
     return BANNED_PATTERNS.some(pattern => pattern.test(text));
 }
-if (containsBannedWords(message)) {
-    output.innerText = "⚠️ Safety Alert: Generated content blocked for security reasons.";
 
-    // ⭐ Save safe placeholder to recents so UI works properly
-    saveRecent("⚠️ Blocked content (restricted words detected)");
-
+if (containsBannedWords(name) || containsBannedWords(desc)) {
+    output.innerText = "⚠️ Safety Alert: Your input contains restricted words.";
+    saveBlockedRecent(); // ⭐ FIXED
     return;
 }
-
             // Utility to select a random element from an array (Crucial for variability)
             const getRandom = (arr) => arr[Math.floor(Math.random() * arr.length)];
             const date = new Date().toLocaleDateString();
