@@ -1135,6 +1135,20 @@ function typeWrite(text, elementId, speed = 30) {
             // Store the title once
             const title = document.getElementById('toolTitle').innerText.toLowerCase();
             const output = document.getElementById('output');
+const BANNED_WORDS = [
+    "sex", "porn", "nude", "kill", "murder", "suicide", 
+    "abuse", "hate", "violence", "threat"
+];
+
+function containsBannedWords(text) {
+    const lower = text.toLowerCase();
+    return BANNED_WORDS.some(bw => lower.includes(bw));
+}
+// 🚫 Security Check — Block unsafe words
+if (containsBannedWords(name) || containsBannedWords(desc)) {
+    output.innerText = "⚠️ Safety Alert: Your input contains restricted words.";
+    return; // Stop before generating anything
+}
 
             // Utility to select a random element from an array (Crucial for variability)
             const getRandom = (arr) => arr[Math.floor(Math.random() * arr.length)];
