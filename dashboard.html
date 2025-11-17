@@ -1107,7 +1107,20 @@ function goBack() {
   showRecents();
 }
 
+function typeWrite(text, elementId, speed = 30) {
+    const el = document.getElementById(elementId);
+    el.innerHTML = "";
+    let i = 0;
 
+    function type() {
+        if (i < text.length) {
+            el.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+        }
+    }
+    type();
+}
 
 
 
@@ -1297,7 +1310,7 @@ function goBack() {
                 message = `Dear ${name},\n\nThis is a default piece capturing **${desc}**. (Mode: ${title || 'Unknown'}, Depth: ${depth || 'Unknown'})\n\nWith warmth,${signature}`;
             }
 
-            output.innerText = message;
+            typeWrite(message + signature, 'output', 30);
         }
 function copyText() {
     const tool = document.getElementById("toolTitle").innerText.toLowerCase();
