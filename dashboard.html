@@ -1310,7 +1310,7 @@ function typeWrite(text, elementId, speed = 30) {
                 message = `Dear ${name},\n\nThis is a default piece capturing **${desc}**. (Mode: ${title || 'Unknown'}, Depth: ${depth || 'Unknown'})\n\nWith warmth,${signature}`;
             }
 
-            typeWrite(message + signature, 'output', 30);
+            typeWrite(message,'output', 30);
         }
 function copyText() {
     const tool = document.getElementById("toolTitle").innerText.toLowerCase();
