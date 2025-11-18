@@ -203,29 +203,6 @@
     border: 2px solid #ddd;
 }
 
-.dropdown {
-    position: absolute;
-    right: 0;
-    top: 50px;
-    background: var(--bg);
-    width: 150px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    border-radius: 8px;
-    overflow: hidden;
-    animation: fadeIn 0.2s ease;
-    z-index: 10;
-}
-
-.dropdown p {
-    margin: 0;
-    padding: 10px 12px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.dropdown p:hover {
-    background:var(--muted);
-}
 
 .hidden {
     display: none;
@@ -263,112 +240,123 @@
 }
 
 
-/* --------------------------- */
-/*        PROFILE BOX          */
-/* --------------------------- */
+/* ------------------------------
+   ACCOUNT PAGE – CLEAN PREMIUM UI
+------------------------------ */
 
-.profile-box, 
-.settings-box {
+#accountView {
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
+}
+
+#accountView h2 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* Section Boxes */
+.section-box {
     background: var(--card);
-    padding: 25px;
-    border-radius: 18px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-    text-align: center;
-    margin: auto;
+    padding: 18px;
+    margin-top: 18px;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     transition: 0.2s ease;
 }
 
-.profile-box:hover,
-.settings-box:hover {
-    box-shadow: 0 8px 26px rgba(0,0,0,0.12);
+.section-box:hover {
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
 }
 
+.section-box h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+    opacity: 0.8;
+}
+
+/* Profile Avatar */
 .profile-avatar {
-    width: 80px;
-    height: 80px;
+    width: 88px;
+    height: 88px;
     border-radius: 50%;
-    margin-bottom: 15px;
-    border: 3px solid #ffd4e2;
-    box-shadow: 0 4px 12px rgba(255, 104, 150, 0.25);
+    margin-bottom: 12px;
+    border: 2px solid #e5e5e5;
 }
 
-/* Input fields */
-.profile-box input {
-    display: block;
-    width: 90%;
-    max-width: 350px;
-    margin: 10px auto;
-    padding: 12px;
+/* Inputs */
+#accountView input,
+#accountView textarea {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 12px;
     border-radius: 12px;
     border: 1px solid #ddd;
-    font-size: 15px;
-    transition: 0.2s ease;
+    font-size: 14px;
+    outline: none;
+    transition: 0.2s;
+    background: var(--bg);
 }
 
-.profile-box input:focus {
-    border-color: #ff6396;
-    box-shadow: 0 0 6px rgba(255, 99, 150, 0.3);
+#accountView textarea {
+    resize: vertical;
+    min-height: 70px;
 }
 
-/* Save button */
-.profile-box button {
-    margin-top: 15px;
-    background: var(--accent)
+#accountView input:focus,
+#accountView textarea:focus {
+    border-color: #8a5cff;
+    box-shadow: 0 0 0 3px rgba(138,92,255,0.15);
+}
+
+/* Buttons */
+#accountView button {
+    width: 100%;
+    padding: 10px 14px;
+    background: #8a5cff;
     border: none;
-    padding: 12px 20px;
-    border-radius: 12px;
     color: white;
-    font-size: 16px;
+    border-radius: 12px;
+    font-size: 15px;
     cursor: pointer;
-    width: 140px;
-    transition: 0.2s ease;
+    transition: 0.2s;
 }
 
-.profile-box button:hover {
-    opacity: 0.9;
+#accountView button:hover {
+    background: #7647ff;
 }
 
-
-/* --------------------------- */
-/*         SETTINGS PAGE       */
-/* --------------------------- */
-
-.settings-box label {
+/* Labels (checkbox) */
+#accountView label {
     display: flex;
     align-items: center;
-    gap: 12px;
-    font-size: 16px;
-    padding: 12px 0;
-    color: var(--text);
-}
-
-.settings-box input[type="checkbox"] {
-    accent-color: #ff6396;
-    width: 18px;
-    height: 18px;
-}
-
-
-/* --------------------------- */
-/*          ABOUT PAGE         */
-/* --------------------------- */
-
-.about-text {
-    font-size: 16px;
-    line-height: 1.6;
-    color: #555;
-    padding: 20px;
-    background:var(--card);
-  color:var(--text);
-    border-radius: 16px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-}
-
-.about-small {
-    margin-top: 20px;
-    text-align: center;
+    gap: 8px;
+    margin-bottom: 10px;
     font-size: 14px;
+    cursor: pointer;
+}
+
+/* Back Button */
+.back-btn {
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    margin-bottom: 12px;
+    cursor: pointer;
     color: var(--text);
+}
+
+/* About Text */
+.about-small {
+    margin-top: 8px;
+    font-size: 13px;
+    opacity: 0.6;
+}
+
+/* Fade Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 
@@ -573,13 +561,14 @@
             font-size: 1.15rem;
             line-height: 1.6;
             color: var(--text);
-            padding-top: 10px;
+            padding:10px;
         }
 
         .back-btn {
     background: none;
     border: none;
     font-size: 16px;
+    font-weight: 700;
     color: var(--accent);
     text-decoration: none;
     cursor: pointer;
@@ -792,7 +781,7 @@
     <div class="avatar-container">
        <img 
     class="avatar"
-    onclick="toggleDropdown()"
+    onclick="openTool('Accounts')"
     src="data:image/svg+xml;utf8,
 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>
   <circle cx='32' cy='32' r='30' fill='%23ffe4e6'/>
@@ -800,14 +789,6 @@
         fill='%23e11d48'/>
 </svg>"
 />
-
-
-
-        <div id="avatarDropdown" class="dropdown hidden">
-            <p onclick="openTool('Profile')">👤 Profile</p>
-<p onclick="openTool('Settings')">⚙️ Settings</p>
-<p onclick="openTool('About')">ℹ️ About</p>
-        </div>
     </div>
 </div>
 
@@ -827,73 +808,50 @@
             <div class="tool-item" onclick="openTool('Quotes')">Quote Maker</div>
         </div>
       
-      <!-- Profile View -->
-<div id="profileView" class="hidden pageView">
+   <!-- Account View -->
+<div id="accountView" class="hidden pageView">
     <button class="back-btn" onclick="goDashboard()">← Back</button>
 
-    <h2>👤 Your Profile</h2>
+    <h2>👤 Account</h2>
 
-    <div class="profile-box">
-        <!-- Avatar -->
+    <!-- PROFILE SECTION -->
+    <div class="section-box">
+        <h3>Profile</h3>
+
         <img class="profile-avatar" src="default-avatar.svg" id="profileAvatar">
-        
-        <!-- Username -->
+
         <input type="text" id="profileUsername" placeholder="Username">
-
-        <!-- Email -->
         <input type="email" id="profileEmail" placeholder="Email">
-
-        <!-- Date of Birth -->
         <input type="date" id="profileDOB">
-
-        <!-- Short Bio -->
-        <textarea id="profileBio" placeholder="Write a short bio..."></textarea>
+        <textarea id="profileBio" placeholder="Short bio..."></textarea>
 
         <button onclick="saveProfile()">Save Profile</button>
     </div>
-</div>
-<!-- Settings View -->
-<div id="settingsView" class="hidden pageView">
-    <button class="back-btn" onclick="goDashboard()">← Back</button>
 
-    <h2>⚙️ Settings</h2>
+    <!-- SETTINGS SECTION -->
+    <div class="section-box">
+        <h3>Settings</h3>
 
-    <div class="settings-box">
-
-        <!-- General Section -->
-        <h3>General</h3>
         <label><input type="checkbox" id="darkModeToggle"> Dark Mode</label>
         <label><input type="checkbox" id="notifToggle"> Notifications</label>
 
-        <!-- Writing Preferences -->
-        <h3>Writing Preferences</h3>
-        <label><input type="checkbox" id="emotionHintsToggle"> Show Emotion Suggestions</label>
-        <label><input type="checkbox" id="autoFeelingToggle"> Auto Detect Feelings (AI)</label>
-        <label><input type="checkbox" id="handwritingToggle"> Handwriting Style Output</label>
+        <label><input type="checkbox" id="emotionHintsToggle"> Emotion Suggestions</label>
+        <label><input type="checkbox" id="autoFeelingToggle"> Auto Feeling Detect</label>
+        <label><input type="checkbox" id="handwritingToggle"> Handwriting Style</label>
 
-        <!-- Account & Data -->
-        <h3>Account & Data</h3>
-        <label><input type="checkbox" id="autoSaveToggle"> Auto Save Writing</label>
+        <label><input type="checkbox" id="autoSaveToggle"> Auto Save</label>
         <label><input type="checkbox" id="backupToggle"> Cloud Backup</label>
+
         <button onclick="logoutUser()">Logout</button>
     </div>
-</div>
 
-<!-- About Page -->
-<div id="aboutView" class="hidden pageView">
-    <button class="back-btn" onclick="goDashboard()">← Back</button>
-    <h2>ℹ️ About HeartNote AI</h2>
+    <!-- ABOUT SECTION -->
+    <div class="section-box">
+        <h3>About HeartNote AI</h3>
 
-    <p class="about-text">
-        HeartNote AI is your emotional writing companion —  
-        designed to help you express your thoughts, feelings, and inner world
-        with clarity and warmth.
-    </p>
-
-    <p class="about-small">
-        Version: 1.0.0<br>
-        Created by Solulure Labs
-    </p>
+        <p>HeartNote AI helps you express emotions with clarity and warmth.</p>
+        <p class="about-small">Version: 1.0.0<br>Created by Solulure Labs</p>
+    </div>
 </div>
 
 
@@ -979,9 +937,8 @@ function openTool(name) {
   // Hide everything first
   document.getElementById("libraryView").style.display = "none";
   document.getElementById("workspaceView").classList.remove("active");
-  document.getElementById("profileView").classList.add("hidden");
-  document.getElementById("settingsView").classList.add("hidden");
-  document.getElementById("aboutView").classList.add("hidden");
+  document.getElementById("accountView").classList.add("hidden");
+ 
 
   // --- 1️⃣ Dashboard ---
   if (name === "Dashboard") {
@@ -990,23 +947,10 @@ function openTool(name) {
     return;
   }
 
-  // --- 2️⃣ Profile Page ---
-  if (name === "Profile") {
-    document.getElementById("profileView").classList.remove("hidden");
-    return;
-  }
-
-  // --- 3️⃣ Settings Page ---
-  if (name === "Settings") {
-    document.getElementById("settingsView").classList.remove("hidden");
-    return;
-  }
-
-  // --- 4️⃣ About Page ---
-  if (name === "About") {
-    document.getElementById("aboutView").classList.remove("hidden");
-    return;
-  }
+  if (name === "Accounts") {
+        document.getElementById("accountView").classList.remove("hidden");
+        return;
+    }
 
   // --- 5️⃣ Writing Tools (Letters, Poems, Notes...) ---
   document.getElementById('workspaceView').classList.add('active');
@@ -1677,10 +1621,6 @@ function updateRecentContent(toolName, newContent) {
     recents[index].content = newContent;
     localStorage.setItem("recents", JSON.stringify(recents));
   }
-}
-        function toggleDropdown() {
-     const menu = document.getElementById("avatarDropdown");
-    menu.style.display = menu.style.display === "block" ? "none" : "block";
 }
       function hideAllPages() {
     document.querySelectorAll(".pageView").forEach(p => p.classList.add("hidden"));
