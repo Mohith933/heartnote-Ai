@@ -278,6 +278,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 12px 0;
+    border-bottom: 1px solid #f1f1f1;
     font-size: 16px;
     color: #333;
 }
@@ -624,7 +625,17 @@
     text-decoration: none;
     cursor: pointer;
     margin-bottom: 10px;
+          /* Smooth animation */
+    transition: color 0.25s ease, transform 0.25s ease, opacity 0.25s ease;
         }
+      .back-btn:hover {
+    color: var(--accent); /* optional */
+/* soft slide left */
+    opacity: 0.9;
+}
+      .back-btn:active {
+    opacity: 0.7;
+}
 
         footer {
             text-align: center;
@@ -780,10 +791,6 @@
             .copy-btn {
                 font-size: 0.85rem;
                 padding: 6px 12px;
-            }
-            #accountView{
-                width:100%;
-                padding:0px;
             }
         }
     </style>
@@ -1856,6 +1863,15 @@ function logoutUser() {
     }
 }
 
+// Auto-close dropdown when clicking outside
+document.addEventListener("click", function(e) {
+    const dropdown = document.getElementById("avatarDropdown");
+    const avatar = document.querySelector(".avatar");
+
+    if (!avatar.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.classList.add("hidden");
+    }
+});
 
 
 
