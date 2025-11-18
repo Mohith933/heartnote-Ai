@@ -1143,38 +1143,15 @@ function typeWrite(text, elementId, speed = 30) {
             const title = document.getElementById('toolTitle').innerText.toLowerCase();
             const output = document.getElementById('output');
 const BANNED_PATTERNS = [
-    // Sexual explicit words
     /\bsex\b/i,
     /\bporn\b/i,
-    /\bnude\b/i,
-    /\bfuck(ing|ed)?\b/i,
-    /\basshole\b/i,
-    /\bslut\b/i,
-    /\bdick\b/i,
-    /\bboobs?\b/i,
-    
-    // Insults
-    /\bfuck you\b/i,
-    /\bbitch(es)?\b/i,
-    /\bbastard\b/i,
-    /\bidiot\b/i,
-    /\bstupid\b/i,
-    /\bretard(ed)?\b/i,
-    /\bmotherfucker\b/i,
-
-    // Violence & harm
+    /\bsuicid/i,
     /\bkill\b/i,
-    /\bmurder\b/i,
-    /\bsuicid(e|al)?/i,
+    /\bmurder/i,
     /\bviolence?\b/i,
-    /\bthreat(s)?\b/i,
-    /\bmassacre\b/i,
-
-    // Abuse
-    /\babus(e|ing|ed)?\b/i,
-    /\bhate(s|ful)?\b/i
+    /\bhate\b/i,
+    /\bfuck\b/i   // for strong abuse
 ];
-
 function containsBannedWords(text) {
     return BANNED_PATTERNS.some(pattern => pattern.test(text));
 }
@@ -1184,8 +1161,8 @@ if (containsBannedWords(name) || containsBannedWords(desc)) {
 
     document.getElementById("state").dataset.blocked = "true"; // mark blocked
     return;
-}
-            // Utility to select a random element from an array (Crucial for variability)
+}        
+// Utility to select a random element from an array (Crucial for variability)
             const getRandom = (arr) => arr[Math.floor(Math.random() * arr.length)];
             const date = new Date().toLocaleDateString();
             const signature = '\n💗 HeartNote AI';
