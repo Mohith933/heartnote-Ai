@@ -1332,7 +1332,7 @@ if (containsBannedWords(name) || containsBannedWords(desc)) {
                     [`The deepest confidence comes from within. Your calm strength is the loudest voice in the room, capable of navigating anything related to **${desc}** and ${name}.`,
                     `This challenge around **${desc}** is refining your character. Embrace the process; your true strength for ${name} is revealed in the quiet intensity of this moment.`]
                 );
-message = `${content}\n\n${signature}`;
+message = `${message}\n\n${signature}`;
             }
 
             // --- 🌿 Affirmation Mode (Enhanced Tone) ---
@@ -1422,8 +1422,7 @@ message = `${content}\n\n${signature}`;
                     [`"True alignment begins when we realize that **${desc}** is not a destination, but the compass itself for ${name}."`, `"Meaning is found in the exploration of **${desc}**, not in its immediate resolution for ${name}."`],
                     [`"To truly understand the depth of human connection, one must first confront the powerful truth of **${desc}** and ${name}."`, `"The final word on **${desc}** is always self-compassion, leading to infinite strength for ${name}."`]
                 );
-message = `"${quote}"\n\n— ${signature}`;
-            }
+message = `"${message}"\n\n— ${signature}`;         }
 
             // Default fallback
             else {
