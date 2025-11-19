@@ -1353,7 +1353,9 @@ message = `${message}\n\n${signature}`;
             // --- ✉️ Letter Mode (Enhanced Tone) ---
             else if (title.includes('letters')) {
                 // Use the name input for salutation
-                const recipient = name.trim().replace(/^a\s+/i, ''); // Simple cleanup for generic roles like 'a mentor'
+                // Strip 'a ', 'an ', or 'the ' from the beginning (case-insensitive)
+const recipient = name.trim().replace(/^(a|an|the)\s+/i, '');
+
 
                 const salutation = tone(
                     [`Dear ${recipient},`, `Hi ${recipient},`],
