@@ -1211,40 +1211,6 @@ function goBack() {
   showRecents();
 }
 
-function emotionalTypeWrite(text, elementId, toneLevel = "medium") {
-    const el = document.getElementById(elementId);
-    el.innerHTML = "";
-    let i = 0;
-
-    el.classList.add("output");
-
-    // Tone-based writing speed
-    let speed;
-    switch (toneLevel.toLowerCase()) {
-        case "deep":
-            speed = 70; // slow & emotional
-            break;
-        case "light":
-            speed = 35; // faster, happy
-            break;
-        default:
-            speed = 50; // medium calm
-    }
-
-    function type() {
-        if (i < text.length) {
-            el.textContent += text.charAt(i);
-            i++;
-
-            // Slight natural pauses every few characters
-            let pause = (i % 6 === 0) ? speed * 1.7 : speed;
-            setTimeout(type, pause);
-        }
-    }
-    type();
-}
-
-
 
         function generateContent() {
             // 1. Robust Input Handling: Trim whitespace and define const variables
@@ -1288,6 +1254,34 @@ if (containsBannedWords(name) || containsBannedWords(desc)) {
                 // If input is 'deep' OR any other invalid value, default to the deep template
                 return getRandom(deep);
             }
+// Emotional typewriter writing
+function emotionalTypeWrite(text, elementId, depth = "medium") {
+    const el = document.getElementById(elementId);
+    el.innerHTML = "";
+    let i = 0;
+
+    el.classList.add("output");
+
+    // Speed settings based on emotional depth
+    let speed;
+    if (depth === "deep") speed = 70;
+    else if (depth === "light") speed = 35;
+    else speed = 50;
+
+    function type() {
+        if (i < text.length) {
+            el.textContent += text.charAt(i);
+            i++;
+
+            // Natural smooth pen-writing pause
+            let pause = (i % 5 === 0) ? speed * 1.4 : speed;
+            setTimeout(type, pause);
+        }
+    }
+    type();
+}
+
+
 
             let message = '';
 
@@ -1452,7 +1446,7 @@ message = `"${message}"\n\n— ${signature}`;         }
                 message = `Dear ${name},\n\nThis is a default piece capturing **${desc}**. (Mode: ${title || 'Unknown'}, Depth: ${depth || 'Unknown'})\n\nWith warmth,${signature}`;
             }
 
-            emotionalTypeWrite(message, "output", selectedTone);
+            emotionalTypeWrite(message, "output", depth);
         }
 function copyText() {
     const tool = document.getElementById("toolTitle").innerText.toLowerCase();
