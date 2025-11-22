@@ -1210,20 +1210,35 @@ function goBack() {
   showRecents();
 }
 
-function typeWrite(text, elementId, speed = 30) {
+function typeWrite(text, elementId, speed = 40) {
     const el = document.getElementById(elementId);
     el.innerHTML = "";
     let i = 0;
 
-    el.classList.add("output"); // ensures Caveat font applies
+    el.classList.add("output"); // keep handwriting font
 
     function type() {
         if (i < text.length) {
             el.textContent += text.charAt(i);
             i++;
-            setTimeout(type, speed);
+
+            let delay = speed;
+
+            // Natural variation in handwriting speed
+            delay += Math.random() * 35;
+
+            // Extra pause after punctuation (human-like thinking)
+            if (".,!?".includes(text.charAt(i - 1))) {
+                delay += speed * 4;
+            }
+
+            // Smooth scrolling to bottom if long text
+            el.scrollIntoView({ behavior: "smooth", block: "end" });
+
+            setTimeout(type, delay);
         }
     }
+
     type();
 }
 
