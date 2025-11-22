@@ -449,42 +449,48 @@ if (!userDOB) {
   
       // typing effect for output (keeps HTML safe)  
      // Writing effect — smoother, ink-like feel ✍️  
-async function writeEffect(html, speed = 10) {  
-  const tmp = document.createElement("div");  
-  tmp.innerHTML = html;  
-  const text = tmp.innerText;  
-  outputEl.innerHTML = ""; // clear  
+function emotionalHandwriteHTML(html, elementId, toneLevel = "medium") {
+    const el = document.getElementById(elementId);
+    el.innerHTML = "";
+    el.classList.add("handwriting");
+
+    let speed;
+    switch (toneLevel.toLowerCase()) {
+        case "deep": speed = 80; break;
+        case "light": speed = 35; break;
+        default: speed = 55;
+    }
+
+    // Parse HTML into nodes
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, "text/html");
+    const nodes = [...doc.body.childNodes];
+
+    let nodeIndex = 0;
+    let charIndex = 0;
+    let currentNode;
+    let currentClone;
+
+    function typeNext() {
+        if (!currentNode || charIndex >= currentNode.textContent.length) {
+            if (nodeIndex >= nodes.length) return;
+            currentNode = nodes[nodeIndex++];
+            currentClone = currentNode.cloneNode(false);
+            el.appendChild(currentClone);
+            charIndex = 0;
+        }
+
+        const text = currentNode.textContent;
+        currentClone.textContent = text.slice(0, charIndex + 1);
+        charIndex++;
+
+        setTimeout(typeNext, (charIndex % 6 === 0) ? speed * 1.6 : speed);
+    }
+
+    typeNext();
+}
   
-  let i = 0;  
-  const cursor = document.createElement("span");  
-  cursor.textContent = "|";  
-  cursor.style.animation = "blink 1s infinite";  
-  cursor.style.opacity = "0.8";  
-  cursor.style.color = "#ffbad2";  
-  outputEl.appendChild(cursor);  
-  outputEl.classList.add("handwriting");  
-  
-  while (i < text.length) {  
-    outputEl.insertBefore(document.createTextNode(text[i]), cursor);  
-    i++;  
-    if (i % 3 === 0) await new Promise(r => setTimeout(r, speed * 0.8)); // smoother  
-    outputEl.scrollIntoView({ behavior: "smooth", block: "end" });  
-  }  
-  
-  cursor.remove();  
-  outputEl.innerHTML = html; // restore formatted HTML  
-  lenInfo.textContent = `${outputEl.innerText.length} chars`;  
-}  
-  
-// Add blinking cursor animation to your CSS:  
-const style = document.createElement("style");  
-style.textContent = `  
-@keyframes blink {  
-  0%, 50%, 100% { opacity: 0; }  
-  25%, 75% { opacity: 1; }  
-}`;  
-document.head.appendChild(style);  
-  
+
       // --- Updated generation logic for HeartNote AI (Personal Writer v1) ---
 function generateContent(prompt, mode, emotion) {
   // Check if prompt is null/undefined, trim spaces, and define the default topic
@@ -631,25 +637,16 @@ function generateContent(prompt, mode, emotion) {
 }
   
       // Generate button handler  
-      generateBtn.addEventListener("click", async () => {  
-        const prompt = promptEl.value.trim();  
-        const mode = modeEl.value;  
-        const emotion = emotionEl.value;  
-  
-        // small UX guard  
-        generateBtn.disabled = true;  
-        generateBtn.textContent = "Creating...";  
-        const content = generateContent(prompt, mode, emotion);  
-  
-        // type out the content  
-        await writeEffect(content, 14);  
-  
-        generateBtn.disabled = false;  
-        generateBtn.textContent = "Generate";  
-  
-        // auto-add short preview to history (not saved until user presses Add)  
-        // but we update len and button states  
-      });  
+      generateBtn.addEventListener("click", async () => {
+  const mode = modeEl.value;
+  const prompt = promptEl.value;
+  const emotion = emotionEl.value;
+
+  const html = generateContent(prompt, mode, emotion);
+
+  // New handwriting effect ✍️
+  emotionalHandwriteHTML(html, "output", emotion);
+});  
   
       // Copy output  
       copyBtn.addEventListener("click", async () => {  
