@@ -1210,47 +1210,23 @@ function goBack() {
   showRecents();
 }
 
-function typeWrite(text, elementId, speed = 40) {
+function typeWrite(text, elementId, speed = 30) {
     const el = document.getElementById(elementId);
     el.innerHTML = "";
     let i = 0;
 
-    // Add a soft blinking cursor
-    el.style.borderRight = "2px solid #FF6584"; 
-    el.style.paddingRight = "4px";
-    el.style.animation = "blinkCursor 0.75s infinite";
+    el.classList.add("output"); // ensures Caveat font applies
 
     function type() {
         if (i < text.length) {
-            const span = document.createElement("span");
-            span.textContent = text.charAt(i);
-            span.style.opacity = "0";
-            span.style.transition = "opacity 0.25s ease-in"; // smooth fade-in effect
-            el.appendChild(span);
-
-            setTimeout(() => {
-                span.style.opacity = "1";
-            }, 50);
-
+            el.textContent += text.charAt(i);
             i++;
             setTimeout(type, speed);
-        } else {
-            el.style.borderRight = "none"; // remove cursor after finish
         }
     }
     type();
 }
 
-// Cursor blinking animation
-const style = document.createElement("style");
-style.innerHTML = `
-@keyframes blinkCursor {
-    0% { border-color: transparent; }
-    50% { border-color: #FF6584; }
-    100% { border-color: transparent; }
-}
-`;
-document.head.appendChild(style);
 
 
         function generateContent() {
