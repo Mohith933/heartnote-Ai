@@ -461,7 +461,6 @@ function emotionalHandwriteHTML(html, elementId, toneLevel = "medium") {
         default: speed = 55;
     }
 
-    // Parse HTML into nodes
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, "text/html");
     const nodes = [...doc.body.childNodes];
@@ -471,9 +470,18 @@ function emotionalHandwriteHTML(html, elementId, toneLevel = "medium") {
     let currentNode;
     let currentClone;
 
+    const fullTextLength = doc.body.innerText.length; // total chars
+
     function typeNext() {
         if (!currentNode || charIndex >= currentNode.textContent.length) {
-            if (nodeIndex >= nodes.length) return;
+            if (nodeIndex >= nodes.length) {
+                // ✨ Done → show char count
+                const lenInfo = document.getElementById("lenInfo");
+                if (lenInfo) {
+                    lenInfo.textContent = `${fullTextLength} chars`;
+                }
+                return;
+            }
             currentNode = nodes[nodeIndex++];
             currentClone = currentNode.cloneNode(false);
             el.appendChild(currentClone);
