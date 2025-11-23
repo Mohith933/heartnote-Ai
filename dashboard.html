@@ -905,67 +905,34 @@
 
     <!-- SETTINGS SECTION -->
     <div class="section-box">
-        <h3>Settings</h3>
+    <h3>Settings</h3>
 
-       <label class="toggle-row">
-    <span>Dark Mode</span>
-    <label class="switch">
-        <input type="checkbox" id="darkModeToggle">
-        <span class="slider"></span>
+    <label class="toggle-row">
+        <span>Dark Mode</span>
+        <label class="switch">
+            <input type="checkbox" id="darkModeToggle">
+            <span class="slider"></span>
+        </label>
     </label>
-</label>
 
-<label class="toggle-row">
-    <span>Notifications</span>
-    <label class="switch">
-        <input type="checkbox" id="notifToggle">
-        <span class="slider"></span>
+    <label class="toggle-row">
+        <span>Emotion Suggestions</span>
+        <label class="switch">
+            <input type="checkbox" id="emotionHintsToggle">
+            <span class="slider"></span>
+        </label>
     </label>
-</label>
 
-<label class="toggle-row">
-    <span>Emotion Suggestions</span>
-    <label class="switch">
-        <input type="checkbox" id="emotionHintsToggle">
-        <span class="slider"></span>
+    <label class="toggle-row">
+        <span>Auto Save</span>
+        <label class="switch">
+            <input type="checkbox" id="autoSaveToggle">
+            <span class="slider"></span>
+        </label>
     </label>
-</label>
 
-<label class="toggle-row">
-    <span>Auto Feeling Detect</span>
-    <label class="switch">
-        <input type="checkbox" id="autoFeelingToggle">
-        <span class="slider"></span>
-    </label>
-</label>
-
-<label class="toggle-row">
-    <span>Handwriting Style</span>
-    <label class="switch">
-        <input type="checkbox" id="handwritingToggle">
-        <span class="slider"></span>
-    </label>
-</label>
-
-<label class="toggle-row">
-    <span>Auto Save</span>
-    <label class="switch">
-        <input type="checkbox" id="autoSaveToggle">
-        <span class="slider"></span>
-    </label>
-</label>
-
-<label class="toggle-row">
-    <span>Cloud Backup</span>
-    <label class="switch">
-        <input type="checkbox" id="backupToggle">
-        <span class="slider"></span>
-    </label>
-</label>
-
-
-        <button onclick="logoutUser()">Logout</button>
-    </div>
+    <button onclick="logoutUser()">Logout</button>
+</div>
 
     <!-- ABOUT SECTION -->
     <div class="section-box">
@@ -1815,16 +1782,11 @@ loadProfile();
 function saveSettings() {
     const settings = {
         darkMode: document.getElementById("darkModeToggle").checked,
-        notifications: document.getElementById("notifToggle").checked,
-        autoSave: document.getElementById("autoSaveToggle").checked,
         emotionHints: document.getElementById("emotionHintsToggle").checked,
-        autoFeeling: document.getElementById("autoFeelingToggle").checked,
-        handwriting: document.getElementById("handwritingToggle").checked,
-        backup: document.getElementById("backupToggle").checked
+        autoSave: document.getElementById("autoSaveToggle").checked
     };
 
     localStorage.setItem("userSettings", JSON.stringify(settings));
-
     applySettings(settings);
 }
 
@@ -1834,26 +1796,43 @@ function loadSettings() {
 
     const settings = JSON.parse(data);
 
-    // Set UI toggles
+    // Set UI toggles (only 3 active)
     document.getElementById("darkModeToggle").checked = settings.darkMode || false;
-    document.getElementById("notifToggle").checked = settings.notifications || false;
-    document.getElementById("autoSaveToggle").checked = settings.autoSave || false;
-    document.getElementById("emotionHintsToggle").checked = settings.emotionHints || false;
-    document.getElementById("autoFeelingToggle").checked = settings.autoFeeling || false;
-    document.getElementById("handwritingToggle").checked = settings.handwriting || false;
-    document.getElementById("backupToggle").checked = settings.backup || false;
+    document.getElementById("emotionHintsToggle").checked = settings.emotionHints || true;
+    document.getElementById("autoSaveToggle").checked = settings.autoSave || true;
 
     applySettings(settings);
 }
 
 function applySettings(settings) {
-    // Dark mode handler
+    // Dark Mode
     if (settings.darkMode) {
         document.body.classList.add("dark");
     } else {
         document.body.classList.remove("dark");
     }
+
+    // Emotion Suggestions UI Handler
+    document.body.dataset.showHints = settings.emotionHints ? "true" : "false";
+
+    // Auto Save — just store boolean for now (logic in generation part)
+    localStorage.setItem("autoSave", settings.autoSave ? "1" : "0");
 }
+
+// Save when toggle clicked
+function updateSetting(key, value) {
+    const data = JSON.parse(localStorage.getItem("userSettings") || "{}");
+    data[key] = value;
+    localStorage.setItem("userSettings", JSON.stringify(data));
+    applySettings(data);
+}
+
+// Attach listeners
+["darkModeToggle","emotionHintsToggle","autoSaveToggle"].forEach(id => {
+    document.getElementById(id).addEventListener("change", (e) => {
+        updateSetting(id.replace("Toggle",""), e.target.checked);
+    });
+});
 
 
 
