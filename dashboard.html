@@ -883,23 +883,25 @@
 
     <!-- PROFILE SECTION -->
     <div class="section-box">
-        <h3>Profile</h3>
-<center>
-        <img class="profile-avatar" src="data:image/svg+xml;utf8,
+    <h3>Profile</h3>
+    <center>
+        <img class="profile-avatar" id="profileAvatar" 
+             src="data:image/svg+xml;utf8,
 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>
   <circle cx='32' cy='32' r='30' fill='%23ffe4e6'/>
   <path d='M32 22c3-6 12-6 15 0 3 6-1 14-15 22-14-8-18-16-15-22 3-6 12-6 15 0z'
         fill='%23e11d48'/>
-</svg>" id="profileAvatar">
-      </center>
+</svg>">
+    </center>
 
-        <input type="text" id="profileUsername" placeholder="Username">
-        <input type="email" id="profileEmail" placeholder="Email">
-        <input type="date" id="profileDOB">
-        <textarea id="profileBio" placeholder="Short bio..."></textarea>
+    <div class="profile-field"><strong>Username:</strong> <span id="displayUsername"></span></div>
+    <div class="profile-field"><strong>Email:</strong> <span id="displayEmail"></span></div>
+    <div class="profile-field"><strong>DOB:</strong> <span id="displayDOB"></span></div>
+    <div class="profile-field"><strong>Age:</strong> <span id="displayAge"></span></div>
 
-        <button onclick="saveProfile()">Save Profile</button>
-    </div>
+    <!-- Edit button only shown if needed later -->
+    <button id="editProfileBtn" onclick="enableEdit()">Edit Profile</button>
+</div>
 
     <!-- SETTINGS SECTION -->
     <div class="section-box">
@@ -1784,30 +1786,25 @@ window.onload = () => {
    🔹 2. PROFILE FUNCTIONS
    ========================================================== */
 
-function saveProfile() {
-    const profile = {
-        username: document.getElementById("profileUsername").value,
-        email: document.getElementById("profileEmail").value,
-        dob: document.getElementById("profileDOB").value,
-        bio: document.getElementById("profileBio").value
-    };
-
-    localStorage.setItem("userProfile", JSON.stringify(profile));
-
-    alert("Profile saved successfully! 💗");
-}
-
 function loadProfile() {
-    const data = localStorage.getItem("userProfile");
-    if (!data) return;
+    const username = localStorage.getItem("hn_username") || "Guest";
+    const email = localStorage.getItem("hn_email") || "No email";
+    const dob = localStorage.getItem("heartnote_dob") || "Not set";
 
-    const profile = JSON.parse(data);
+    document.getElementById("displayUsername").textContent = username;
+    document.getElementById("displayEmail").textContent = email;
+    document.getElementById("displayDOB").textContent = dob;
 
-    document.getElementById("profileUsername").value = profile.username || "";
-    document.getElementById("profileEmail").value = profile.email || "";
-    document.getElementById("profileDOB").value = profile.dob || "";
-    document.getElementById("profileBio").value = profile.bio || "";
+    if (dob !== "Not set") {
+        const age = calculateAge(dob);
+        document.getElementById("displayAge").textContent = age + " years";
+    } else {
+        document.getElementById("displayAge").textContent = "-";
+    }
 }
+
+// Reuse your same age function
+loadProfile();
 
 
 
