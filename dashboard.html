@@ -278,9 +278,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 12px 0;
-    border-bottom: 1px solid #f1f1f1;
     font-size: 16px;
-    color: #333;
+    color: var(--text);
 }
 
 /* Switch Style */
@@ -349,6 +348,32 @@
     border-radius: 50%;
     margin: 10px 0;
     display: block;
+}
+     .info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+}
+
+.info-row strong {
+  color: var(--accent);
+}
+
+#editProfileBtn {
+  margin-top: 14px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+#editProfileBtn:hover {
+  opacity: 0.85;
 }
 
 /* Inputs */
@@ -894,11 +919,30 @@
 </svg>">
     </center>
 
- <p><strong>Name:</strong> <span id="displayUsername"></span></p>
-<p><strong>Email:</strong> <span id="displayEmail"></span></p>
-<p><strong>Date of Birth:</strong> <span id="displayDOB"></span></p>
-<p><strong>Age:</strong> <span id="displayAge"></span></p>
-<p><strong>Mode:</strong> <span id="displayMode"></span></p>
+  <div class="info-row">
+        <strong>Name</strong>
+        <span id="displayUsername"></span>
+    </div>
+
+    <div class="info-row">
+        <strong>Email</strong>
+        <span id="displayEmail"></span>
+    </div>
+
+    <div class="info-row">
+        <strong>DOB</strong>
+        <span id="displayDOB"></span>
+    </div>
+
+    <div class="info-row">
+        <strong>Age</strong>
+        <span id="displayAge"></span>
+    </div>
+
+    <div class="info-row">
+        <strong>Mode Access</strong>
+        <span id="displayMode"></span>
+    </div>
 
     <!-- Edit button only shown if needed later -->
     <button id="editProfileBtn" onclick="enableEdit()">Edit Profile</button>
@@ -981,12 +1025,12 @@
 
                     <label for="nameInput">💗 Recipient or Topic</label>
                     <div class="input-with-suggest">
-                        <input type="text" id="nameInput" placeholder="Enter recipient or topic...">
+                        <input type="text" id="nameInput" placeholder="Enter recipient or topic..." required>
                         <button class="suggest-btn" onclick="suggestName()" title="Suggest topic">💡</button>
                     </div>
                     <label for="descInput">📝 What do you feel?</label>
                     <div class="input-with-suggest">
-                        <textarea id="descInput" rows="4" placeholder="Write your thoughts..."></textarea>
+                        <textarea id="descInput" rows="4" placeholder="Write your thoughts..." required></textarea>
                         <button class="suggest-btn" onclick="suggestFeeling()" title="Suggest feeling">💡</button>
                     </div>
 
