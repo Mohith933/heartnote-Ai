@@ -345,65 +345,61 @@
 
   <script>
     const modal = document.getElementById('signupModal');
-    const openBtn = document.getElementById('openSignup');
-    const closeBtn = document.getElementById('closeModal');
-    const submitBtn = document.getElementById('submitSignup');
+const openBtn = document.getElementById('openSignup');
+const closeBtn = document.getElementById('closeModal');
+const submitBtn = document.getElementById('submitSignup');
 
-    openBtn.onclick = () => modal.style.display = 'flex';
-    closeBtn.onclick = () => modal.style.display = 'none';
-    window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+// Open modal
+openBtn.onclick = () => modal.style.display = 'flex';
 
-    submitBtn.onclick = () => {
-      const username = document.getElementById('username').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value.trim();
+// Close modal
+closeBtn.onclick = () => modal.style.display = 'none';
 
-      if (username && email && password) {
-        localStorage.setItem('heartnote_username', username);
-        window.location.href = 'dashboard.html';
-      } else {
-        alert('Please fill all fields before continuing.');
-      }
-    };
-    document.getElementById("submitSignup").addEventListener("click", function () {
+// Close on click outside
+window.onclick = (e) => {
+  if (e.target === modal) modal.style.display = 'none';
+};
+
+// Signup button listener
+submitBtn.onclick = () => {
   const username = document.getElementById("username").value.trim();
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
   const dob = document.getElementById("dob").value;
 
   if (!username || !email || !password || !dob) {
-    alert("Please fill all fields!");
+    alert("Please fill all fields before continuing.");
     return;
   }
 
-  // Calculate age
+  // Age Calculation
   const birthDate = new Date(dob);
   const today = new Date();
   let age = today.getFullYear() - birthDate.getFullYear();
-  const m = today.getMonth() - birthDate.getMonth();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
 
-  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
     age--;
   }
 
-  // Store user info (you can replace with real backend later)
-  localStorage.setItem("username", username);
+  // Store user info
+  localStorage.setItem("heartnote_username", username);
   localStorage.setItem("email", email);
   localStorage.setItem("dob", dob);
   localStorage.setItem("age", age);
 
-  // Decide mode set
+  // Mode setup: Safety Feature ❤️
   if (age < 18) {
-    alert(`Welcome ${username}! Under 18 mode activated: Day-to-day life tools only.`);
+    alert(`Welcome ${username}! 💚 Under 18 mode activated (safe emotional writing only).`);
     localStorage.setItem("mode", "under18");
   } else {
-    alert(`Welcome ${username}! Full access unlocked: All modes available.`);
+    alert(`Welcome ${username}! 🔥 Full HeartNote AI experience unlocked!`);
     localStorage.setItem("mode", "adult");
   }
 
-  // Close modal (optional)
-  document.getElementById("signupModal").style.display = "none";
-});
+  // Redirect
+  window.location.href = 'dashboard.html';
+};
   </script>
 </body>
 </html>
