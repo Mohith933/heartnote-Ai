@@ -894,10 +894,11 @@
 </svg>">
     </center>
 
-    <div class="profile-field"><strong>Username:</strong> <span id="displayUsername"></span></div>
-    <div class="profile-field"><strong>Email:</strong> <span id="displayEmail"></span></div>
-    <div class="profile-field"><strong>DOB:</strong> <span id="displayDOB"></span></div>
-    <div class="profile-field"><strong>Age:</strong> <span id="displayAge"></span></div>
+ <p><strong>Name:</strong> <span id="displayUsername"></span></p>
+<p><strong>Email:</strong> <span id="displayEmail"></span></p>
+<p><strong>Date of Birth:</strong> <span id="displayDOB"></span></p>
+<p><strong>Age:</strong> <span id="displayAge"></span></p>
+<p><strong>Mode:</strong> <span id="displayMode"></span></p>
 
     <!-- Edit button only shown if needed later -->
     <button id="editProfileBtn" onclick="enableEdit()">Edit Profile</button>
@@ -1753,10 +1754,23 @@ window.onload = () => {
    🔹 2. PROFILE FUNCTIONS
    ========================================================== */
 
+function calculateAge(dob) {
+    const birthDate = new Date(dob);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+}
+
 function loadProfile() {
-    const username = localStorage.getItem("hn_username") || "Guest";
-    const email = localStorage.getItem("hn_email") || "No email";
-    const dob = localStorage.getItem("heartnote_dob") || "Not set";
+    const username = localStorage.getItem("heartnote_username") || "Guest";
+    const email = localStorage.getItem("email") || "Not provided";
+    const dob = localStorage.getItem("dob") || "Not set";
+    const mode = localStorage.getItem("mode") || "unknown";
 
     document.getElementById("displayUsername").textContent = username;
     document.getElementById("displayEmail").textContent = email;
@@ -1768,11 +1782,12 @@ function loadProfile() {
     } else {
         document.getElementById("displayAge").textContent = "-";
     }
+
+    document.getElementById("displayMode").textContent =
+        mode === "under18" ? "Safe Mode (Under 18)" : "Full Access";
 }
 
-// Reuse your same age function
-loadProfile();
-
+document.addEventListener("DOMContentLoaded", loadProfile);
 
 
 /* ==========================================================
